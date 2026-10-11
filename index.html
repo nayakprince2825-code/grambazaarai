@@ -274,4 +274,160 @@ function renderProducts(){
 function changeQty(id,delta){
  quantities[id]=Math.max(1,Math.min(999,(quantities[id]||1)+delta));
  const el=document.getElementById("qty-"+id);
- if(el) el.textContent=quant
+ if(el) el.textContent=quantities[id];
+}
+
+function addToCart(id){
+ const q=quantities[id]||1;
+ cart[id]=Math.min(999,(cart[id]||0)+q);
+ saveCart();
+ renderCart();
+ alert("उत्पाद कार्ट में जोड़ दिया गया है।");
+}
+
+function removeFromCart(id){
+ delete cart[id];
+ saveCart();
+ renderCart();
+}
+
+function clearCart(){
+ if(!Object.keys(cart).length){alert("आपकी कार्ट पहले से खाली है।");return;}
+ if(confirm("क्या आप पूरी कार्ट खाली करना चाहते हैं?")){
+  cart={};saveCart();renderCart();
+ }
+}
+
+function getCartProducts(){
+ return products.filter(p=>Number.isInteger(cart[p.id])&&cart[p.id]>0)
+  .map(p=>({...p,quantity:cart[p.id],subtotal:p.price*cart[p.id]}));
+}
+
+function renderCart(){
+ const items=getCartProducts();
+ document.getElementById("cartCount").textContent=items.reduce((s,p)=>s+p.quantity,0);
+ document.getElementById("cartTotal").textContent=money(items.reduce((s,p)=>s+p.subtotal,0));
+ document.getElementById("cartItems").innerHTML=items.length?items.map(p=>`
+  <div class="cart-row">
+   <div class="cart-row-info">
+    <img src="${p.image}" alt="${p.name}" class="cart-thumb">
+    <div>
+     <strong>${p.name}</strong>
+     <small>${money(p.price)} ${p.unit} × ${p.quantity}</small>
+     <strong>${money(p.subtotal)}</strong>
+    </div>
+   </div>
+   <div>
+    <button class="cat" onclick="adjustCart(${p.id},-1)">−</button>
+    <button class="cat" onclick="adjustCart(${p.id},1)">+</button>
+    <button class="remove" onclick="removeFromCart(${p.id})">हटाएँ</button>
+   </div>
+  </div>`).join(""):`<div class="empty">🛒 आपकी कार्ट खाली है।<br>अपनी पसंद के उत्पाद जोड़ें।</div>`;
+}
+
+function adjustCart(id,delta){
+ if(!cart[id])return;
+ cart[id]=Math.min(999,cart[id]+delta);
+ if(cart[id]<1)delete cart[id];
+ saveCart();renderCart();
+}
+
+function checkoutCart(){
+ if(!getCartProducts().length){
+  alert("पहले कार्ट में कम से कम एक उत्पाद जोड़ें।");
+  document.getElementById("productSection").scrollIntoView({behavior:"smooth"});
+  return;
+ }
+ document.getElementById("checkoutSection").scrollIntoView({behavior:"smooth"});
+ document.getElementById("customerName").focus({preventScroll:true});
+}
+
+function safeText(s){
+ return String(s||"").replace(/[\u0000-\u001F\u007F]/g," ").trim();
+}
+
+function openWhatsApp(message){
+ const url="https://wa.me/"+SELLER_WHATSAPP+"?text="+encodeURIComponent(message);
+ const win=window.open(url,"_blank");
+ if(!win) window.location.href=url;
+}
+
+function customerDetails(){
+ const name=safeText(document.getElementById("customerName").value);
+ const phone=safeText(document.getElementById("customerPhone").value);
+ const address=safeText(document.getElementById("customerAddress").value);
+ const city=safeText(document.getElementById("customerCity").value);
+ const pin=safeText(document.getElementById("customerPin").value);
+ const notes=safeText(document.getElementById("customerNotes").value);
+ if(!name||!/^[6-9][0-9]{9}$/.test(phone)||!address||!city||!/^[0-9]{6}$/.test(pin)){
+  alert("कृपया सभी आवश्यक जानकारी सही भरें।");
+  return null;
+ }
+ return {name,phone,address,city,pin,notes};
+}
+
+function orderMessage(customer,items){
+ const total=items.reduce((s,p)=>s+p.subtotal,0);
+ return [
+  "नमस्ते GramBazaar!",
+  "मुझे निम्नलिखित उत्पाद ऑर्डर करने हैं।",
+  "",
+  "ग्राहक का नाम: "+customer.name,
+  "मोबाइल नंबर: "+customer.phone,
+  "पूरा पता: "+customer.address,
+  "गाँव/शहर: "+customer.city,
+  "पिन कोड: "+customer.pin,
+  "",
+  "ऑर्डर विवरण:",
+  ...items.map((p,i)=>(i+1)+". "+p.name+" ("+p.unit+") × "+p.quantity+" = "+money(p.subtotal)),
+  "",
+  "कुल उत्पाद राशि: "+money(total),
+  "अतिरिक्त जानकारी: "+(customer.notes||"कोई नहीं"),
+  "",
+  "कृपया उत्पादों की उपलब्धता, अंतिम कीमत और डिलीवरी शुल्क की पुष्टि करें।",
+  "धन्यवाद!"
+ ].join("\n");
+}
+
+document.getElementById("checkoutForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const customer=customerDetails();
+ if(!customer)return;
+ const items=getCartProducts();
+ if(!items.length){alert("आपकी कार्ट खाली है।");return;}
+ openWhatsApp(orderMessage(customer,items));
+});
+
+function directOrder(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ const customer=customerDetails();
+ if(!customer){
+  document.getElementById("checkoutSection").scrollIntoView({behavior:"smooth"});
+  alert("पहले ऑर्डर फ़ॉर्म में अपना नाम, मोबाइल नंबर और पता भरें।");
+  return;
+ }
+ const q=quantities[id]||1;
+ openWhatsApp(orderMessage(customer,[{...p,quantity:q,subtotal:p.price*q}]));
+}
+
+document.getElementById("suggestForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const name=safeText(document.getElementById("suggestName").value);
+ const product=safeText(document.getElementById("suggestProduct").value);
+ const notes=safeText(document.getElementById("suggestNotes").value);
+ if(!product){alert("कृपया उत्पाद का नाम लिखें।");return;}
+ openWhatsApp([
+  "नमस्ते GramBazaar!",
+  "मैं वेबसाइट के लिए एक उत्पाद सुझाना चाहता/चाहती हूँ।",
+  "नाम: "+(name||"नहीं दिया"),
+  "सुझाया गया उत्पाद: "+product,
+  "अतिरिक्त सुझाव: "+(notes||"कोई नहीं")
+ ].join("\n"));
+});
+
+document.getElementById("year").textContent=new Date().getFullYear();
+renderCategories();
+renderProducts();
+</script>
+</body></html>
