@@ -1,852 +1,367 @@
 <!DOCTYPE html>
 
-<html lang="hi"><head>
+<html class="scroll-smooth" lang="hi"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
 <title>GramBazaar (ग्रामबाज़ार) — शहडोल के प्रामाणिक स्थानीय उत्पाद</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <!-- Google Fonts: Hind & Poppins -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#edf7ef',
+              100: '#d7eedc',
+              500: '#2e8b4e',
+              600: '#1e6b38',
+              700: '#144926',
+              800: '#143e22',
+              900: '#0e2b17',
+            },
+            accent: {
+              DEFAULT: '#d97706',
+              hover: '#b45309'
+            },
+            cream: '#fcfbf7'
+          },
+          fontFamily: {
+            sans: ['Hind', 'sans-serif'],
+            heading: ['Hind', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
 <style>
-    :root {
-      --primary: #1e6b38;
-      --primary-dark: #144926;
-      --primary-light: #2e8b4e;
-      --accent: #d97706;
-      --accent-hover: #b45309;
-      --cream-bg: #fcfbf7;
-      --surface: #ffffff;
-      --surface-subtle: #f4f1ea;
-      --text-main: #1f2937;
-      --text-muted: #526071;
-      --border: #e2ddd3;
-      --border-focus: #1e6b38;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 12px rgba(20,73,38,0.08);
-      --shadow-lg: 0 10px 25px -3px rgba(20,73,38,0.12);
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --whatsapp-green: #25D366;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    /* Mobile-tailored ergonomics */
     body {
       font-family: 'Hind', sans-serif;
-      background-color: var(--cream-bg);
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
+      background-color: #fcfbf7;
+      color: #1f2937;
+      -webkit-tap-highlight-color: transparent;
+      padding-bottom: 74px; /* Space for bottom floating bar */
     }
 
-    h1, h2, h3, h4, .brand-font {
-      font-family: 'Hind', sans-serif;
-      font-weight: 700;
-      color: #143520;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button, input, select, textarea {
-      font-family: inherit;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-
-    /* Top Announcement Bar */
-    .top-bar {
-      background: #143e22;
-      color: #e5f6eb;
-      font-size: 0.88rem;
-      padding: 0.45rem 1rem;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.75rem;
-      font-weight: 500;
-    }
-    .top-bar span {
-      background: rgba(255,255,255,0.15);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-    }
-
-    /* Header & Navigation */
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-sm);
-    }
-    .nav-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-    }
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.45rem;
-      color: var(--primary-dark);
-      font-weight: 700;
-    }
-    .brand-icon {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, #1e6b38, #2e8b4e);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.5rem;
-      box-shadow: 0 4px 8px rgba(30,107,56,0.25);
-    }
-    .brand-subtext {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--accent);
-      display: block;
-      margin-top: -4px;
-    }
-
-    .desktop-nav {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-    }
-    .nav-link {
-      font-size: 1.02rem;
-      font-weight: 600;
-      color: var(--text-main);
-      transition: color 0.2s ease;
-      position: relative;
-      padding: 6px 0;
-    }
-    .nav-link:hover, .nav-link.active {
-      color: var(--primary);
-    }
-    .nav-link:hover::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2.5px;
-      background: var(--primary);
-      border-radius: 2px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .cart-trigger-btn {
-      background: #f1f8f3;
-      border: 1.5px solid #cce8d4;
-      color: var(--primary-dark);
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-    .cart-trigger-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-    .cart-badge {
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.8rem;
-      border-radius: 50%;
-      min-width: 22px;
-      height: 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 4px;
-      font-weight: 700;
-    }
-
-    .mobile-menu-toggle {
+    .no-scrollbar::-webkit-scrollbar {
       display: none;
-      background: none;
-      border: none;
-      font-size: 1.75rem;
-      cursor: pointer;
-      color: var(--primary-dark);
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
-    /* Mobile Drawer */
-    .mobile-drawer {
-      display: none;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 1rem 1.25rem 1.5rem;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-    .mobile-drawer.open {
-      display: flex;
-    }
-    .mobile-nav-link {
-      font-size: 1.05rem;
-      font-weight: 600;
-      padding: 8px 0;
-      border-bottom: 1px solid #f0eee8;
-    }
-
-    /* Hero Section */
-    .hero-section {
-      background: linear-gradient(135deg, #f7f4ed 0%, #edf6ef 100%);
-      padding: 3.5rem 0 4rem;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #e4f3e9;
-      color: var(--primary-dark);
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 1.25rem;
-      border: 1px solid #c7e6d2;
-    }
-    .hero-title {
-      font-size: 2.85rem;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-      color: #143e22;
-    }
-    .hero-desc {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 1.85rem;
-      max-width: 540px;
-    }
-    .hero-cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 26px;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 1.05rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: none;
-    }
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(30,107,56,0.3);
-    }
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--primary-dark);
-      border: 1.5px solid var(--primary);
-    }
-    .btn-secondary:hover {
-      background: #eef7f1;
-    }
-    .hero-badges {
-      display: flex;
-      gap: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #dfd9cd;
-    }
-    .hero-badge-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95rem;
-      color: #2b4433;
-      font-weight: 500;
-    }
-    .hero-badge-item span.icon {
-      font-size: 1.3rem;
-    }
-    .hero-banner-card {
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      padding: 1rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-lg);
-      position: relative;
-    }
-    .hero-img-wrap {
-      width: 100%;
-      height: 380px;
-      border-radius: calc(var(--radius-lg) - 4px);
-      overflow: hidden;
-      position: relative;
-      background: #e2ede5;
-    }
-    .hero-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .hero-floating-badge {
-      position: absolute;
-      bottom: -15px;
-      left: 25px;
-      background: #fff;
-      border-radius: var(--radius-md);
-      padding: 10px 18px;
-      box-shadow: var(--shadow-md);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .hero-floating-badge .check-icon {
-      width: 34px;
-      height: 34px;
-      background: #e2f6e9;
-      color: var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-    }
-
-    /* Disclaimer Notice Banner */
-    .notice-bar {
-      background: #fff8e8;
-      border-top: 1px solid #fae8c3;
-      border-bottom: 1px solid #fae8c3;
-      padding: 0.85rem 0;
-      color: #8c5303;
-      font-size: 0.95rem;
-    }
-    .notice-bar .container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    /* Search & Filter Toolbar */
-    .catalog-section {
-      padding: 3.5rem 0 4rem;
-    }
-    .section-header {
-      text-align: center;
-      margin-bottom: 2.25rem;
-    }
-    .section-subtitle {
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-    .section-title {
-      font-size: 2.2rem;
-      color: #143e22;
-    }
-    .section-lead {
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 8px auto 0;
-      font-size: 1.05rem;
-    }
-
-    .search-filter-card {
-      background: var(--surface);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 2rem;
-    }
-    .search-box-row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .search-input-wrap {
-      flex: 1;
-      position: relative;
-    }
-    .search-input-wrap input {
-      width: 100%;
-      padding: 12px 14px 12px 42px;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--border);
-      font-size: 1rem;
-      background: #fbfbf9;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .search-input-wrap input:focus {
-      border-color: var(--primary);
-      background: #fff;
-    }
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.1rem;
-      color: #7b8a9b;
-    }
-
-    .category-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .cat-btn {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 8px 16px;
-      border-radius: 25px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .cat-btn:hover {
-      background: #e8f3ec;
-      border-color: #badcc5;
-      color: var(--primary-dark);
-    }
-    .cat-btn.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #fff;
-      box-shadow: 0 2px 6px rgba(30,107,56,0.25);
-    }
-
-    /* Product Grid */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 1.75rem;
-    }
-
-    .product-card {
-      background: var(--surface);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative;
-    }
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-      border-color: #c9e0d1;
-    }
-    .prod-img-container {
-      width: 100%;
-      height: 200px;
-      position: relative;
-      background: #f1ede4;
-      overflow: hidden;
-    }
-    .prod-img-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-    .product-card:hover .prod-img-container img {
-      transform: scale(1.04);
-    }
-    .prod-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(20, 62, 34, 0.88);
-      backdrop-filter: blur(4px);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-      z-index: 2;
-    }
-    .prod-status-tag {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #e7f7ec;
-      color: #145928;
-      border: 1px solid #bce6c9;
-      font-size: 0.75rem;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-weight: 600;
-      z-index: 2;
-    }
-
-    .prod-details {
-      padding: 1.15rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .prod-category {
-      font-size: 0.8rem;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-    .prod-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #143e22;
-      line-height: 1.35;
-      margin-bottom: 6px;
-    }
-    .prod-desc {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-      margin-bottom: 12px;
-      flex: 1;
-    }
-    .prod-pricing-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed var(--border);
-    }
-    .prod-price {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-    }
-    .prod-unit {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .prod-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .qty-control-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: #fbf9f4;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 4px 8px;
-    }
-    .qty-btn {
-      width: 32px;
-      height: 32px;
-      background: #fff;
-      border: 1px solid #d5cebf;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--primary-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s;
-    }
-    .qty-btn:hover {
-      background: #edf7f0;
-      border-color: var(--primary);
-    }
-    .qty-display {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--text-main);
-      min-width: 28px;
-      text-align: center;
-    }
-
-    .card-btn-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-    .btn-add-cart {
-      background: #f0f7f2;
-      border: 1.5px solid #bddfc7;
-      color: var(--primary-dark);
-      padding: 9px 8px;
-      border-radius: var(--radius-sm);
-      font-size: 0.92rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: all 0.2s;
-    }
-    .btn-add-cart:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-    .btn-whatsapp-direct {
-      background: #25D366;
-      border: 1.5px solid #20ba5a;
-      color: #fff;
-      padding: 9px 8px;
-      border-radius: var(--radius-sm);
-      font-size: 0.92rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: background 0.2s;
-    }
-    .btn-whatsapp-direct:hover {
-      background: #1eb857;
-    }
-
-    .no-results-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 3rem 1rem;
-      background: #fff;
-      border-radius: var(--radius-md);
-      border: 1px dashed var(--border);
-    }
-    .no-results-state p {
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    /* How It Works Section */
-    .how-it-works-section {
-      background: #f3efe6;
-      padding: 4rem 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .step-card {
-      background: var(--surface);
-      padding: 2rem 1.5rem;
-      border-radius: var(--radius-md);
-      text-align: center;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-    .step-number {
-      width: 48px;
-      height: 48px;
-      background: var(--primary);
-      color: #fff;
-      font-size: 1.3rem;
-      font-weight: 700;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-      box-shadow: 0 4px 8px rgba(30,107,56,0.3);
-    }
-    .step-title {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
-    .step-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* About & Story Section */
-    .about-section {
-      padding: 4.5rem 0;
-      background: var(--surface);
-    }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3.5rem;
-      align-items: center;
-    }
-    .about-content h2 {
-      font-size: 2.2rem;
-      margin-bottom: 1.25rem;
-    }
-    .about-content p {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      margin-bottom: 1.25rem;
-    }
-    .about-pillars {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-    }
-    .pillar-box {
-      background: #f7f5ed;
-      padding: 1.1rem;
-      border-radius: var(--radius-sm);
-      border-left: 4px solid var(--primary);
-    }
-    .pillar-box h4 {
-      font-size: 1.05rem;
-      margin-bottom: 4px;
-      color: var(--primary-dark);
-    }
-    .pillar-box p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin: 0;
-    }
-
-    /* Suggestion & FAQ Section */
-    .interactive-section {
-      padding: 4rem 0;
-      background: var(--cream-bg);
-      border-top: 1px solid var(--border);
-    }
-    .interactive-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-
-    .form-box {
-      background: var(--surface);
-      padding: 2rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-      font-size: 0.95rem;
-    }
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 11px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 0.98rem;
-      outline: none;
-    }
-    .form-group input:focus, .form-group textarea:focus {
-      border-color: var(--primary);
-    }
-    .form-hint {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Accordion FAQ */
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .faq-item {
-      background: var(--surface);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-    .faq-question {
-      padding: 1.1rem 1.25rem;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: #143e22;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #faf8f2;
-    }
-    .faq-answer {
-      padding: 1rem 1.25rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-      display: none;
-      line-height: 1.6;
-    }
-    .faq-item.active .faq-answer {
-    
+    .tap-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-brand-100 selection:text-brand-800">
+<!-- Micro Announcement Header -->
+<div class="bg-brand-900 text-brand-50 px-3 py-1.5 text-xs font-medium flex items-center justify-between border-b border-brand-800 tracking-tight">
+<div class="flex items-center gap-1 truncate">
+<span class="text-amber-400">🌾</span>
+<span class="truncate">शहडोल सीधा संपर्क • WhatsApp ऑर्डर</span>
+</div>
+<a class="text-emerald-300 font-semibold flex items-center gap-1 shrink-0 ml-2" href="tel:+919203622969">
+<span class="text-[11px]">📞 92036 22969</span>
+</a>
+</div>
+<!-- Sticky Mobile Header -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-xs">
+<div class="px-3.5 h-14 flex items-center justify-between">
+<a class="flex items-center gap-2" href="#home">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-700 to-brand-500 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          🌱
+        </div>
+<div>
+<span class="text-base font-bold text-brand-900 leading-none tracking-tight block">GramBazaar</span>
+<span class="text-[10px] font-semibold text-accent leading-none block mt-0.5">ग्रामबाज़ार • शहडोल (म.प्र.)</span>
+</div>
+</a>
+<div class="flex items-center gap-2">
+<a aria-label="Search" class="w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center text-sm tap-target" href="#catalog">
+          🔍
+        </a>
+<button class="relative flex items-center gap-1.5 bg-brand-50 border border-brand-100 text-brand-800 px-3 py-1.5 rounded-full font-semibold text-xs tap-target transition-transform active:scale-95" onclick="toggleCartModal(true)">
+<span>🛒</span>
+<span class="cart-total-badge bg-accent text-white font-bold rounded-full px-1.5 py-0.2 text-[11px] min-w-[18px] text-center" id="headerCartCount">0</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="px-3.5 pt-4 pb-5 bg-gradient-to-b from-[#f5f8f5] to-cream border-b border-stone-200/70" id="home">
+<div class="space-y-3.5">
+<div class="inline-flex items-center gap-1.5 bg-brand-100/70 text-brand-800 text-[11px] font-semibold px-2.5 py-1 rounded-full border border-brand-200/70">
+<span>🌾</span>
+<span>मध्य प्रदेश के शहडोल ज़िले से सीधे आपके द्वार</span>
+</div>
+<h1 class="text-2xl font-bold text-brand-900 leading-snug tracking-tight">
+        शहडोल के स्थानीय उत्पाद, अब आपके घर तक!
+      </h1>
+<p class="text-xs text-stone-600 leading-relaxed">
+        अपने क्षेत्र के स्वाद और गुणवत्ता से जुड़ें। पसंदीदा उत्पाद चुनें और WhatsApp से आसानी से ऑर्डर करें।
+      </p>
+<div class="flex items-center gap-2.5 pt-0.5">
+<a class="flex-1 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-semibold text-xs py-2.5 px-3 rounded-xl shadow-sm shadow-brand-600/30 flex items-center justify-center gap-1.5 tap-target" href="#catalog">
+<span>🛍️</span> अभी खरीदें
+        </a>
+<a class="flex-1 bg-white hover:bg-stone-50 active:bg-stone-100 text-brand-800 font-semibold text-xs py-2.5 px-3 rounded-xl border border-brand-300 flex items-center justify-center gap-1 tap-target" href="#catalog">
+<span>📋</span> सभी उत्पाद
+        </a>
+</div>
+<!-- Hero Harvest Image -->
+<div class="relative pt-1.5">
+<img alt="शहडोल कृषि उत्पाद" class="w-full h-52 object-cover rounded-2xl shadow-md border border-stone-200" loading="eager" src="https://lh3.googleusercontent.com/aida/AEtjO1UjkqZgFR2CiGax7-AqN81Y0E5pO1dZyKT9vXF5yJcbIHZyKpGsIxJSX4x6IOcsYbvLrpG4IrEqk_EnN4WeEvyHxvCzUq5LN_6z_qGiGEhkWaZeeIXH_k5Xhia0IrQ_8QsM0yNASqkafVRaSTkSgGQnrAi9m6xJZ7xp9zdWStx9vm5Z61iofQswt4Hd8i-OYeJOTUiOCmFYAQ7kgwap0ljCASmMcJ55EWTfERifz_80XUsRiHMWdKCaoh4"/>
+<div class="absolute bottom-2.5 left-2.5 bg-white/95 backdrop-blur-sm rounded-xl px-2.5 py-1.5 shadow-sm border border-stone-200/80 flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-emerald-100 text-brand-600 font-bold text-xs flex items-center justify-center">✓</div>
+<div>
+<div class="text-[11px] font-bold text-brand-900 leading-none">100% स्थानीय परंपरा</div>
+<div class="text-[9px] text-stone-500 leading-none mt-0.5">देसी दालें, कोदो व शहद</div>
+</div>
+</div>
+</div>
+<!-- Feature Pill Badges -->
+<div class="grid grid-cols-3 gap-2 pt-1 text-center">
+<div class="bg-white border border-stone-200/90 rounded-xl p-2 shadow-2xs">
+<div class="text-base">🌾</div>
+<div class="text-[10px] font-semibold text-brand-900 mt-0.5 leading-tight">स्थानीय उपज</div>
+</div>
+<div class="bg-white border border-stone-200/90 rounded-xl p-2 shadow-2xs">
+<div class="text-base">💬</div>
+<div class="text-[10px] font-semibold text-brand-900 mt-0.5 leading-tight">सीधा WhatsApp</div>
+</div>
+<div class="bg-white border border-stone-200/90 rounded-xl p-2 shadow-2xs">
+<div class="text-base">🤝</div>
+<div class="text-[10px] font-semibold text-brand-900 mt-0.5 leading-tight">पारदर्शी मूल्य</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Verification Disclaimer Notice -->
+<section class="bg-amber-50/90 border-b border-amber-200 px-3.5 py-2.5 flex items-start gap-2.5">
+<span class="text-base text-amber-700 leading-none mt-0.5">ℹ️</span>
+<p class="text-[11px] text-amber-900 leading-normal">
+<strong class="font-bold">महत्वपूर्ण सूचना:</strong> डिलीवरी शुल्क, उत्पाद उपलब्धता और अंतिम कीमत की पुष्टि ऑर्डर स्वीकार करने से पहले विक्रेता द्वारा WhatsApp पर की जाएगी। सभी मूल्य सांकेतिक हैं।
+    </p>
+</section>
+<!-- Catalog & Search Section -->
+<section class="px-3.5 pt-5 pb-6" id="catalog">
+<div class="mb-3.5">
+<span class="text-[11px] font-bold text-brand-600 uppercase tracking-wider block">हमारा पूरा कैटलॉग</span>
+<h2 class="text-xl font-bold text-brand-900 tracking-tight leading-snug">शहडोल के ताज़े व प्रामाणिक उत्पाद</h2>
+<p class="text-xs text-stone-600 mt-0.5">अपनी ज़रूरत के अनुसार खोजें या सीधे WhatsApp से मँगवाएं।</p>
+</div>
+<!-- Search Input -->
+<div class="relative mb-3">
+<span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-sm">🔍</span>
+<input class="w-full bg-white text-xs pl-9 pr-8 py-2.5 rounded-xl border border-stone-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-600 placeholder:text-stone-400" id="productSearchInput" oninput="handleSearch()" placeholder="उत्पाद खोजें (उदा. दाल, कोदो, गुड़, हल्दी)..." type="text"/>
+<button class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 text-xs" id="clearSearchBtn" onclick="clearSearchInput()">
+        ✕
+      </button>
+</div>
+<!-- Horizontal Scrollable Category Filter Pills -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth pb-2 -mx-3.5 px-3.5">
+<button class="cat-pill active shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border border-brand-600 bg-brand-600 text-white tap-target transition-all" data-cat="all" onclick="filterCategory('all', this)">
+        🌾 सभी उत्पाद (15)
+      </button>
+<button class="cat-pill shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 tap-target transition-all" data-cat="grains" onclick="filterCategory('grains', this)">
+        🍚 अनाज एवं दालें
+      </button>
+<button class="cat-pill shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 tap-target transition-all" data-cat="local-food" onclick="filterCategory('local-food', this)">
+        🍯 स्थानीय खाद्य पदार्थ
+      </button>
+<button class="cat-pill shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 tap-target transition-all" data-cat="spices" onclick="filterCategory('spices', this)">
+        🌶️ मसाले
+      </button>
+<button class="cat-pill shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 tap-target transition-all" data-cat="agri" onclick="filterCategory('agri', this)">
+        🌾 कृषि उत्पाद
+      </button>
+<button class="cat-pill shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-700 tap-target transition-all" data-cat="rural" onclick="filterCategory('rural', this)">
+        🏡 घरेलू एवं ग्रामीण
+      </button>
+</div>
+<!-- Active Count Status -->
+<div class="text-[11px] text-stone-500 font-medium py-1.5" id="filterResultNotice">
+      सभी 15 स्थानीय उत्पाद उपलब्ध हैं।
+    </div>
+<!-- Mobile Product Card Grid -->
+<div class="grid grid-cols-1 gap-3.5 mt-1" id="productGridContainer">
+<!-- Dynamic cards rendered via JS -->
+</div>
+</section>
+<!-- How to Order: Simple 3 Steps Touch Layout -->
+<section class="px-3.5 py-6 bg-stone-100/90 border-t border-b border-stone-200" id="how-it-works">
+<div class="text-center mb-4">
+<span class="text-[11px] font-bold text-brand-600 uppercase tracking-wide">सरल एवं सुरक्षित प्रक्रिया</span>
+<h2 class="text-lg font-bold text-brand-900 tracking-tight">WhatsApp से कैसे ऑर्डर करें?</h2>
+<p class="text-[11px] text-stone-600 mt-0.5">केवल 3 आसान चरणों में शहडोल के उत्पाद सीधे घर मँगवाएं।</p>
+</div>
+<div class="space-y-2.5">
+<!-- Step 1 -->
+<div class="bg-white rounded-xl p-3 border border-stone-200 flex items-start gap-3 shadow-2xs">
+<div class="w-8 h-8 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
+          १
+        </div>
+<div>
+<h3 class="text-xs font-bold text-brand-900">उत्पाद चुनें</h3>
+<p class="text-[11px] text-stone-600 mt-0.5 leading-snug">
+            मात्रा निर्धारित करें और 'कार्ट में जोड़ें' या तुरंत 'WhatsApp ऑर्डर' पर टैप करें।
+          </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-white rounded-xl p-3 border border-stone-200 flex items-start gap-3 shadow-2xs">
+<div class="w-8 h-8 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
+          २
+        </div>
+<div>
+<h3 class="text-xs font-bold text-brand-900">अपना पता भरें</h3>
+<p class="text-[11px] text-stone-600 mt-0.5 leading-snug">
+            अपना नाम, मोबाइल नंबर, गाँव या शहर और पिन कोड भरें ताकि सही डिलीवरी हो सके।
+          </p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-white rounded-xl p-3 border border-stone-200 flex items-start gap-3 shadow-2xs">
+<div class="w-8 h-8 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
+          ३
+        </div>
+<div>
+<h3 class="text-xs font-bold text-brand-900">WhatsApp पर ऑर्डर भेजें</h3>
+<p class="text-[11px] text-stone-600 mt-0.5 leading-snug">
+            स्वचालित रूप से तैयार संदेश आपके WhatsApp पर खुलेगा। बस "Send" पर क्लिक करें।
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="px-3.5 py-6 bg-white border-b border-stone-200" id="about">
+<div>
+<span class="text-[11px] font-bold text-brand-600 uppercase tracking-wide">हमारे बारे में (About Us)</span>
+<h2 class="text-lg font-bold text-brand-900 tracking-tight leading-snug mt-0.5">शहडोल की माटी का स्वाद, सीधे आप तक</h2>
+<p class="text-xs text-stone-600 mt-2 leading-relaxed">
+<strong class="text-brand-900">GramBazaar (ग्रामबाज़ार)</strong> का उद्देश्य मध्य प्रदेश के शहडोल अंचल के छोटे किसानों, उत्पादकों और ग्रामीण परिवारों के प्रामाणिक उत्पादों को सीधे ग्राहकों तक पहुँचाना है।
+      </p>
+<p class="text-xs text-stone-600 mt-2 leading-relaxed">
+        हम बिचौलियों की अनावश्यक श्रृंखला को हटाकर कोदो, अरहर दाल, देसी गुड़, सरसों व वनोपज शहद को उचित एवं पारदर्शी तरीके से उपलब्ध कराते हैं।
+      </p>
+<!-- Stacked Pillars -->
+<div class="grid grid-cols-2 gap-2 mt-3.5">
+<div class="bg-stone-50 border-l-3 border-brand-600 p-2.5 rounded-r-lg">
+<h4 class="text-[11px] font-bold text-brand-900">पारदर्शी बातचीत</h4>
+<p class="text-[10px] text-stone-600 mt-0.5">कोई छुपा शुल्क नहीं, WhatsApp पर सीधी पुष्टि।</p>
+</div>
+<div class="bg-stone-50 border-l-3 border-brand-600 p-2.5 rounded-r-lg">
+<h4 class="text-[11px] font-bold text-brand-900">स्थानीय स्वाभिमान</h4>
+<p class="text-[10px] text-stone-600 mt-0.5">शहडोल के किसानों का सीधा और निष्पक्ष समर्थन।</p>
+</div>
+</div>
+<!-- About Image with Overlay Pin Info -->
+<div class="mt-4 relative rounded-xl overflow-hidden shadow-sm border border-stone-200">
+<img alt="About Shahdol" class="w-full h-48 object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida/AEtjO1UjkqZgFR2CiGax7-AqN81Y0E5pO1dZyKT9vXF5yJcbIHZyKpGsIxJSX4x6IOcsYbvLrpG4IrEqk_EnN4WeEvyHxvCzUq5LN_6z_qGiGEhkWaZeeIXH_k5Xhia0IrQ_8QsM0yNASqkafVRaSTkSgGQnrAi9m6xJZ7xp9zdWStx9vm5Z61iofQswt4Hd8i-OYeJOTUiOCmFYAQ7kgwap0ljCASmMcJ55EWTfERifz_80XUsRiHMWdKCaoh4"/>
+<div class="bg-brand-900 text-white p-2.5 text-[11px] space-y-0.5">
+<p>📍 <strong>केंद्र:</strong> शहडोल, मध्य प्रदेश — 484001</p>
+<p>📞 <strong>WhatsApp:</strong> +91 92036 22969</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Suggestion & FAQ Section -->
+<section class="px-3.5 py-6 bg-cream border-b border-stone-200 space-y-6">
+<!-- Suggestion Box -->
+<div class="bg-white rounded-2xl p-4 border border-stone-200 shadow-xs" id="suggest">
+<span class="text-[11px] font-bold text-brand-600 uppercase tracking-wide">सुझाव आमंत्रित हैं</span>
+<h3 class="text-base font-bold text-brand-900 mt-0.5">नया उत्पाद सुझाएं</h3>
+<p class="text-xs text-stone-600 mt-1 mb-3">
+        क्या आप शहडोल का कोई विशिष्ट उत्पाद यहाँ देखना चाहते हैं? हमें बताएं।
+      </p>
+<form class="space-y-3" onsubmit="handleSuggestionSubmit(event)">
+<div>
+<label class="block text-[11px] font-bold text-stone-700 mb-1">आपका नाम (वैकल्पिक)</label>
+<input class="w-full bg-stone-50 text-xs px-3 py-2.5 rounded-xl border border-stone-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-600" id="suggCustomerName" placeholder="उदा. रमेश कुमार" type="text"/>
+</div>
+<div>
+<label class="block text-[11px] font-bold text-stone-700 mb-1">सुझाए गए उत्पाद का नाम <span class="text-red-500">*</span></label>
+<input class="w-full bg-stone-50 text-xs px-3 py-2.5 rounded-xl border border-stone-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-600" id="suggProductName" placeholder="उदा. महुआ तेल, तीखुर, आदि" required="" type="text"/>
+</div>
+<div>
+<label class="block text-[11px] font-bold text-stone-700 mb-1">अतिरिक्त विवरण (वैकल्पिक)</label>
+<textarea class="w-full bg-stone-50 text-xs px-3 py-2 rounded-xl border border-stone-300 focus:border-brand-600 focus:ring-1 focus:ring-brand-600" id="suggNotes" placeholder="उत्पाद की विशेषता या क्षेत्र लिखें..." rows="2"></textarea>
+</div>
+<button class="w-full bg-brand-600 active:bg-brand-700 text-white font-bold text-xs py-3 rounded-xl shadow-xs tap-target flex items-center justify-center gap-1.5" type="submit">
+<span>💬</span> WhatsApp पर सुझाव भेजें
+        </button>
+</form>
+</div>
+<!-- FAQ Accordions -->
+<div class="space-y-2.5" id="faq">
+<div class="mb-2">
+<span class="text-[11px] font-bold text-brand-600 uppercase tracking-wide">सहायता केंद्र</span>
+<h3 class="text-base font-bold text-brand-900">अक्सर पूछे जाने वाले सवाल (FAQ)</h3>
+</div>
+<div class="space-y-2">
+<details class="bg-white rounded-xl border border-stone-200 overflow-hidden group">
+<summary class="p-3 text-xs font-bold text-brand-900 cursor-pointer list-none flex items-center justify-between tap-target">
+<span>ऑर्डर करने के बाद क्या होता है?</span>
+<span class="text-stone-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+</summary>
+<div class="px-3 pb-3 pt-1 text-[11px] text-stone-600 border-t border-stone-100 leading-relaxed">
+            जब आप WhatsApp पर संदेश भेजते हैं, तो विक्रेता उपलब्धता, ताज़ा भाव और आपके पते के अनुसार डिलीवरी शुल्क की पुष्टि करते हैं। दोनों पक्षों की सहमति के बाद डिलीवरी रवाना होती है।
+          </div>
+</details>
+<details class="bg-white rounded-xl border border-stone-200 overflow-hidden group">
+<summary class="p-3 text-xs font-bold text-brand-900 cursor-pointer list-none flex items-center justify-between tap-target">
+<span>भुगतान (Payment) कैसे किया जाता है?</span>
+<span class="text-stone-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+</summary>
+<div class="px-3 pb-3 pt-1 text-[11px] text-stone-600 border-t border-stone-100 leading-relaxed">
+            ऑर्डर पुष्टि के समय विक्रेता आपको UPI (Google Pay, PhonePe, Paytm) या डिलीवरी पर नकद (COD जहाँ उपलब्ध हो) का विकल्प प्रदान करते हैं।
+          </div>
+</details>
+<details class="bg-white rounded-xl border border-stone-200 overflow-hidden group">
+<summary class="p-3 text-xs font-bold text-brand-900 cursor-pointer list-none flex items-center justify-between tap-target">
+<span>क्या वेबसाइट पर दी गई कीमतें अंतिम हैं?</span>
+<span class="text-stone-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+</summary>
+<div class="px-3 pb-3 pt-1 text-[11px] text-stone-600 border-t border-stone-100 leading-relaxed">
+            कीमतें सांकेतिक हैं। कृषि उपज में मौसमी बदलाव के आधार पर मामूली अंतर संभव है जिसकी चैट पर पुष्टि की जाती है।
+          </div>
+</details>
+<details class="bg-white rounded-xl border border-stone-200 overflow-hidden group">
+<summary class="p-3 text-xs font-bold text-brand-900 cursor-pointer list-none flex items-center justify-between tap-target">
+<span>क्या कोई खाता (Account) बनाना अनिवार्य है?</span>
+<span class="text-stone-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+</summary>
+<div class="px-3 pb-3 pt-1 text-[11px] text-stone-600 border-t border-stone-100 leading-relaxed">
+            बिल्कुल नहीं! GramBazaar पर किसी लॉगिन या पासवर्ड की ज़रूरत नहीं है। सीधे WhatsApp से ऑर्डर करें।
+          </div>
+</details>
+</div>
+</div>
+</section>
+<!-- Mobile Footer -->
+<footer class="bg-brand-900 text-stone-200 px-4 pt-7 pb-10">
+<div class="space-y-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-xl">🌱</span>
+<h3 class="text-base font-bold text-white">GramBazaar (ग्रामबाज़ार)</h3>
+</div>
+<p class="text-xs text-stone-400 mt-1 leading-relaxed">
+          शहडोल, म.प्र. के प्रामाणिक स्थानीय कृषि उत्पाद, दलहन, मसाले और पारंपरिक ग्रामीण स्वाद सीधे आप तक।
+        </p>
+</div>
+<!-- Quick WhatsApp Button -->
+<div>
+<a class="w-full bg-[#25D366] active:bg-[#1eb857] text-white text-xs font-bold py-2.5 px-3 rounded-xl flex items-cent
