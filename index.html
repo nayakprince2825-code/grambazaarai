@@ -1,433 +1,1198 @@
 <!DOCTYPE html>
 
-<html lang="hi"><head>
+<html class="scroll-smooth" lang="hi"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="#176b3a" name="theme-color"/>
-<title>GramBazaar | ग्रामबाज़ार</title>
+<title>GramBazaar (ग्रामबाज़ार) — शहडोल के शुद्ध व स्थानीय उत्पाद | सीधे खेतों से आपके घर</title>
+<meta content="GramBazaar शहडोल (मध्य प्रदेश) के स्थानीय किसानों और स्व-सहायता समूहों के शुद्ध जैविक अनाज, पारंपरिक दालें, वन शहद व मसाले सीधे आपके घर तक पहुंचाता है।" name="description"/>
+<meta content="#0f392b" name="theme-color"/>
+<!-- Google Fonts & Tailwind CDN -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Rozha+One&amp;family=Yatra+One&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              50: '#f2f7f4',
+              100: '#e1ede6',
+              200: '#c5dcd0',
+              500: '#2b7a59',
+              700: '#1a563d',
+              800: '#144632',
+              900: '#0f392b',
+              950: '#07241a'
+            },
+            harvest: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309'
+            },
+            clay: '#fcfbf7'
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            serif: ['Rozha One', 'serif']
+          }
+        }
+      }
+    }
+  </script>
 <style>
-*{box-sizing:border-box}
-:root{--green:#176b3a;--dark:#104b2a;--cream:#f7f8ef;--orange:#f3a83b}
-body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#f7f8ef;color:#26352a}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-header{background:white;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0000000d}
-.nav{max-width:1150px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font-size:23px;font-weight:800;color:var(--green)}
-.logo small{display:block;font-size:11px;color:#777;font-weight:500}
-.cart-btn,.primary{background:var(--green);color:white;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
-.hero{background:linear-gradient(120deg,#e5f2df,#fff4d8);padding:48px 20px}
-.hero-inner{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:25px}
-.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.2;color:var(--dark);margin:0 0 14px}
-.hero p{line-height:1.8;color:#536354}
-.hero-art{min-width:200px;max-width:320px;flex-shrink:0}
-.hero-art img{width:100%;height:auto;max-height:220px;object-fit:cover;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,0.12)}
-.section{max-width:1150px;margin:32px auto;padding:0 18px}
-.section h2{margin-bottom:8px;color:var(--dark)}
-.muted{color:#6c776d;font-size:14px;line-height:1.7}
-.search{width:100%;padding:13px;border:1px solid #dce3d7;border-radius:10px;background:white;margin:18px 0}
-.categories{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.cat{border:1px solid #d9e2d5;background:white;border-radius:22px;padding:9px 14px;color:#34513a}
-.cat.active{background:var(--green);color:white;border-color:var(--green)}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
-.card{background:white;border:1px solid #e8ebe3;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px #00000006;display:flex;flex-direction:column}
-.product-image{width:100%;height:160px;object-fit:cover;display:block;background:#f0f5e9}
-.card-body{padding:14px;display:flex;flex-direction:column;flex:1}
-.card h3{font-size:17px;margin:0 0 7px}
-.price{font-size:20px;color:var(--green);font-weight:800;margin:8px 0}
-.unit{font-size:12px;color:#687468;font-weight:normal}
-.qty{display:flex;align-items:center;gap:14px;margin:10px 0}
-.qty button{width:32px;height:32px;border:1px solid #dce3d7;background:#f7f8ef;border-radius:8px}
-.qty span{font-weight:bold}
-.card-actions{display:grid;gap:8px;margin-top:auto}
-.add{border:0;border-radius:8px;padding:10px;background:var(--green);color:white;font-weight:bold}
-.direct{border:1px solid #238c4d;border-radius:8px;padding:9px;background:white;color:var(--green)}
-.panel{background:white;padding:22px;border-radius:14px;border:1px solid #e8ebe3;margin:20px 0}
-input,textarea,select{width:100%;padding:12px;border:1px solid #d8dfd4;border-radius:8px;background:white;margin:5px 0 13px}
-label{font-size:14px;font-weight:bold}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.full{grid-column:1/-1}
-.cart-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #eee;padding:12px 0}
-.cart-row-info{display:flex;align-items:center;gap:12px}
-.cart-thumb{width:54px;height:54px;border-radius:8px;object-fit:cover;border:1px solid #e2e8de;flex-shrink:0}
-.cart-row small{display:block;color:#697469;margin-top:5px}
-.remove{border:0;background:#fff0ed;color:#b43827;padding:8px;border-radius:7px}
-.total{display:flex;justify-content:space-between;font-size:21px;font-weight:bold;margin:18px 0}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.step{background:white;padding:20px;border-radius:12px;text-align:center}
-.step b{font-size:28px}
-footer{background:#123f27;color:white;padding:30px 20px;margin-top:40px}
-.footer-inner{max-width:1100px;margin:auto}
-.notice{background:#fff5d9;padding:12px;border-radius:8px;font-size:13px;line-height:1.7}
-.empty{text-align:center;padding:20px;color:#777}
-.whatsapp-float{position:fixed;bottom:18px;right:18px;background:#168b48;color:white;text-decoration:none;padding:14px 17px;border-radius:30px;box-shadow:0 5px 18px #0002;z-index:20}
-.hidden{display:none!important}
-@media(max-width:850px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){
- .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
- .hero{padding:30px 16px}
- .hero-art{min-width:120px;max-width:150px}
- .hero-inner{gap:12px}
- .hero p{font-size:14px}
- .section{margin:25px auto;padding:0 12px}
- .card-body{padding:10px}
- .card h3{font-size:15px}
- .product-image{height:120px}
- .price{font-size:18px}
- .form-grid,.steps{grid-template-columns:1fr}
- .full{grid-column:auto}
- .nav{padding:12px}
- .logo{font-size:20px}
- .cart-btn{padding:10px;font-size:13px}
-}
-</style>
+    body {
+      background-color: #fbfbf8;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .badge-blur {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    /* Hide scrollbar for category tabs */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </head>
-<body>
-<header>
-<div class="nav">
-<div class="logo">🌾 GramBazaar<small>शहडोल का अपना बाज़ार</small></div>
-<button class="cart-btn" onclick="document.getElementById('cartSection').scrollIntoView({behavior:'smooth'})">🛒 कार्ट (<span id="cartCount">0</span>)</button>
+<body class="selection:bg-forest-500 selection:text-white antialiased">
+<!-- Top Announcement Bar -->
+<div class="bg-forest-950 text-emerald-200 text-xs sm:text-sm py-2 px-4 border-b border-forest-900/60 font-medium">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+<span class="inline-flex items-center justify-center bg-forest-700 text-white rounded-full w-4 h-4 text-[10px] animate-pulse">●</span>
+<span>🌾 शहडोल, अमरकंटक व विंध्य क्षेत्र के शुद्ध देसी उत्पाद | ₹500 से अधिक पर निःशुल्क डिलीवरी</span>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="hover:text-white transition flex items-center gap-1.5" href="tel:+919203622969"><i class="fa-solid fa-phone text-xs"></i> +91 92036 22969</a>
+<a class="hover:text-emerald-400 text-white transition flex items-center gap-1.5" href="https://wa.me/919203622969" target="_blank"><i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp सपोर्ट</a>
+</div>
+</div>
+</div>
+<!-- Main Navigation Header -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200/80 transition-shadow duration-200 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+<!-- Brand Logo -->
+<a class="flex items-center gap-3 group shrink-0" href="#">
+<div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-forest-700 via-forest-800 to-forest-950 flex items-center justify-center text-white shadow-md shadow-forest-900/20 group-hover:scale-105 transition-transform duration-300">
+<i class="fa-solid fa-wheat-awn text-2xl text-amber-300"></i>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="text-2xl font-extrabold tracking-tight text-forest-950">GramBazaar</span>
+<span class="text-[11px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full border border-amber-300">100% शुद्ध</span>
+</div>
+<p class="text-xs font-semibold text-stone-500 tracking-wide">ग्रामबाज़ार — शहडोल का अपना बाज़ार</p>
+</div>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-stone-600">
+<a class="hover:text-forest-700 transition" href="#productsSection">सभी उत्पाद</a>
+<a class="hover:text-forest-700 transition" href="#whyUsSection">प्रामाणिकता व लाभ</a>
+<a class="hover:text-forest-700 transition" href="#howItWorks">ऑर्डर कैसे करें</a>
+<a class="hover:text-forest-700 transition" href="#reviewsSection">ग्राहक समीक्षा</a>
+<a class="hover:text-forest-700 transition" href="#faqSection">FAQ</a>
+</nav>
+<!-- Actions: Cart & Quick WhatsApp -->
+<div class="flex items-center gap-3">
+<a class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-forest-700/30 text-forest-800 font-bold text-sm hover:bg-forest-50 transition" href="https://wa.me/919203622969" target="_blank">
+<i class="fa-brands fa-whatsapp text-emerald-600 text-lg"></i>
+<span>सीधा संपर्क</span>
+</a>
+<!-- Cart Trigger Button -->
+<button class="relative inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-forest-900 hover:bg-forest-800 text-white font-bold text-sm shadow-md shadow-forest-900/20 hover:shadow-lg transition-all transform active:scale-95" onclick="toggleCartDrawer(true)">
+<i class="fa-solid fa-basket-shopping text-base text-amber-300"></i>
+<span>कार्ट</span>
+<span class="w-6 h-6 rounded-full bg-amber-400 text-forest-950 font-black text-xs flex items-center justify-center shadow-inner" id="navCartCount">0</span>
+</button>
+</div>
 </div>
 </header>
-<section class="hero" id="home">
-<div class="hero-inner">
+<!-- Hero Banner Section -->
+<section class="relative overflow-hidden bg-gradient-to-b from-stone-100 via-forest-50/40 to-white pt-8 pb-16 lg:py-20 border-b border-stone-200/60">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Hero Text -->
+<div class="lg:col-span-7 space-y-6">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-forest-900 text-xs sm:text-sm font-bold tracking-wide">
+<i class="fa-solid fa-shield-halved text-emerald-700"></i>
+            विंध्य व अमरकंटक के खेतों से बिना मिलावट सीधे आपकी रसोई तक
+          </div>
+<h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-forest-950 leading-[1.18] tracking-tight">
+            शहडोल के स्थानीय व जैविक उत्पाद, <br/>
+<span class="text-forest-700 underline decoration-amber-400 decoration-wavy decoration-2">अब सीधे आपके घर!</span>
+</h1>
+<p class="text-base sm:text-lg text-stone-600 leading-relaxed font-normal max-w-2xl">
+            देसी शरबती गेहूँ, हाथ कुटी अरहर दाल, अमरकंटक का शुद्ध वन शहद, कोदो मिलेट और ताज़ा सरसों। बिचौलियों के बिना किसान से सीधा संपर्क — 100% शुद्धता की गारंटी।
+          </p>
+<!-- CTAs & Key Trust Indicators -->
+<div class="pt-2 flex flex-wrap items-center gap-4">
+<a class="inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl bg-forest-900 hover:bg-forest-800 text-white font-extrabold text-base shadow-xl shadow-forest-900/25 hover:shadow-2xl transition-all transform hover:-translate-y-0.5" href="#productsSection">
+<span>ताज़ा उत्पाद देखें</span>
+<i class="fa-solid fa-arrow-down-long"></i>
+</a>
+<a class="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg shadow-emerald-700/20 hover:shadow-xl transition-all" href="https://wa.me/919203622969?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20GramBazaar!%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%BE%E0%A4%A8%E0%A5%80%E0%A4%AF%20%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%BE%E0%A4%A6%E0%A5%8B%E0%A4%82%20%E0%A4%95%E0%A5%87%20%E0%A4%AC%E0%A4%BE%E0%A4%B0%E0%A5%87%20%E0%A4%AE%E0%A5%87%E0%A4%82%20%E0%A4%9C%E0%A4%BE%E0%A4%A8%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" target="_blank">
+<i class="fa-brands fa-whatsapp text-xl"></i>
+<span>WhatsApp पर पूछें</span>
+</a>
+</div>
+<!-- Quick badges -->
+<div class="grid grid-cols-3 gap-3 pt-4 border-t border-stone-200/80 max-w-lg">
+<div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-700">
+<i class="fa-solid fa-circle-check text-forest-700 text-base"></i>
+<span>100% मिलावट मुक्त</span>
+</div>
+<div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-700">
+<i class="fa-solid fa-truck-fast text-forest-700 text-base"></i>
+<span>शहडोल में तेज़ डिलीवरी</span>
+</div>
+<div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-700">
+<i class="fa-solid fa-hand-holding-heart text-forest-700 text-base"></i>
+<span>किसान को पूरा मूल्य</span>
+</div>
+</div>
+</div>
+<!-- Hero Visual Showcase -->
+<div class="lg:col-span-5 relative">
+<div class="relative mx-auto max-w-md lg:max-w-none">
+<!-- Background Glow -->
+<div class="absolute -inset-2 bg-gradient-to-r from-forest-500 to-amber-500 rounded-3xl blur-xl opacity-20 transform -rotate-1"></div>
+<div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-stone-100">
+<img alt="GramBazaar Shahdol Farm Harvest" class="w-full h-80 sm:h-96 object-cover object-center transform hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/AEtjO1UjkqZgFR2CiGax7-AqN81Y0E5pO1dZyKT9vXF5yJcbIHZyKpGsIxJSX4x6IOcsYbvLrpG4IrEqk_EnN4WeEvyHxvCzUq5LN_6z_qGiGEhkWaZeeIXH_k5Xhia0IrQ_8QsM0yNASqkafVRaSTkSgGQnrAi9m6xJZ7xp9zdWStx9vm5Z61iofQswt4Hd8i-OYeJOTUiOCmFYAQ7kgwap0ljCASmMcJ55EWTfERifz_80XUsRiHMWdKCaoh4"/>
+<!-- Floating Highlight Card 1 -->
+<div class="absolute top-4 left-4 badge-blur bg-white/90 border border-white/60 shadow-lg rounded-2xl p-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg">
+                  🍯
+                </div>
 <div>
-<h1>शहडोल के स्थानीय उत्पाद,<br/>अब आपके घर तक!</h1>
-<p>अपने क्षेत्र के उत्पाद चुनें और WhatsApp से आसानी से ऑर्डर करें।</p>
-<button class="primary" onclick="document.getElementById('productSection').scrollIntoView({behavior:'smooth'})">अभी खरीदें →</button>
+<div class="text-xs font-bold text-forest-950">शुद्ध वन शहद</div>
+<div class="text-[11px] text-stone-500">अमरकंटक वन संकलित</div>
 </div>
-<div class="hero-art">
-<img alt="शहडोल स्थानीय कृषि उत्पाद" src="https://lh3.googleusercontent.com/aida/AEtjO1UjkqZgFR2CiGax7-AqN81Y0E5pO1dZyKT9vXF5yJcbIHZyKpGsIxJSX4x6IOcsYbvLrpG4IrEqk_EnN4WeEvyHxvCzUq5LN_6z_qGiGEhkWaZeeIXH_k5Xhia0IrQ_8QsM0yNASqkafVRaSTkSgGQnrAi9m6xJZ7xp9zdWStx9vm5Z61iofQswt4Hd8i-OYeJOTUiOCmFYAQ7kgwap0ljCASmMcJ55EWTfERifz_80XUsRiHMWdKCaoh4"/>
+</div>
+<!-- Floating Highlight Card 2 -->
+<div class="absolute bottom-4 right-4 badge-blur bg-forest-950/90 text-white border border-forest-800/80 shadow-xl rounded-2xl p-3.5 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-xl">
+                  🌾
+                </div>
+<div>
+<div class="text-xs font-extrabold text-amber-300">कोदो श्रीअन्न (Millet)</div>
+<div class="text-[11px] text-stone-300">शहडोल का सुपरफूड</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Products Catalog Section -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="productsSection">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="inline-flex items-center gap-1.5 text-forest-700 text-xs font-extrabold uppercase tracking-wider mb-2">
+<i class="fa-solid fa-leaf"></i> ताज़ा भंडार
+        </div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-forest-950 tracking-tight">हमारे स्थानीय उत्पाद</h2>
+<p class="text-stone-500 text-sm sm:text-base mt-1">शहडोल क्षेत्र की श्रेष्ठ गुणवत्ता वाली दालें, अनाज, तेल व मसाले।</p>
+</div>
+<!-- Live Search Bar -->
+<div class="w-full md:w-80 relative">
+<i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"></i>
+<input class="w-full pl-11 pr-4 py-3 bg-white border border-stone-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-forest-600 focus:border-transparent transition shadow-sm" id="productSearch" oninput="handleSearch(this.value)" placeholder="उत्पाद खोजें (चावल, दाल, शहद, हल्दी)..." type="text"/>
+<button class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 p-1" id="clearSearchBtn" onclick="clearSearch()">
+<i class="fa-solid fa-xmark"></i>
+</button>
+</div>
+</div>
+<!-- Category Filter Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar" id="categoryTabs">
+<!-- Injected via JavaScript -->
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productGrid">
+<!-- Injected via JavaScript -->
+</div>
+<!-- No Products Found State -->
+<div class="hidden text-center py-16 bg-white rounded-3xl border border-stone-200 p-8 shadow-sm" id="emptySearchState">
+<div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
+<i class="fa-solid fa-box-open"></i>
+</div>
+<h3 class="text-lg font-bold text-forest-950 mb-1">कोई उत्पाद नहीं मिला</h3>
+<p class="text-stone-500 text-sm max-w-md mx-auto mb-6">आपके द्वारा खोजे गए शब्द से कोई मेल नहीं खाता। कृपया किसी अन्य नाम से खोजें अथवा नीचे दिया गया उत्पाद सुझाव फ़ॉर्म भरें।</p>
+<button class="px-5 py-2.5 bg-forest-900 text-white rounded-xl text-sm font-bold hover:bg-forest-800 transition" onclick="clearSearch()">
+        सभी उत्पाद देखें
+      </button>
+</div>
+</section>
+<!-- Value Propositions / Why Choose GramBazaar -->
+<section class="bg-forest-950 text-white py-16 lg:py-24 relative overflow-hidden" id="whyUsSection">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<span class="text-amber-400 text-xs sm:text-sm font-extrabold uppercase tracking-widest inline-block mb-3">हमारी प्रामाणिकता</span>
+<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">ग्रामबाज़ार से ख़रीदारी क्यों करें?</h2>
+<p class="text-stone-300 text-sm sm:text-base mt-3">बाज़ार के रासायनिक और पॉलिश्ड पैक्ड सामान को छोड़ें, असली देसी स्वाद और पोषण अपनाएँ।</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-forest-900/60 border border-forest-800/80 rounded-2xl p-6 hover:bg-forest-900 transition group">
+<div class="w-12 h-12 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+<i class="fa-solid fa-wheat-awn"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">100% अनपॉलिश्ड व शुद्ध</h3>
+<p class="text-stone-300 text-sm leading-relaxed">हमारी दालें और अनाज रासायनिक पॉलिश से मुक्त हैं, जिससे उनका प्राकृतिक पोषण, फाइबर और स्वाद पूरी तरह सुरक्षित रहता है।</p>
+</div>
+<div class="bg-forest-900/60 border border-forest-800/80 rounded-2xl p-6 hover:bg-forest-900 transition group">
+<div class="w-12 h-12 rounded-xl bg-emerald-400/20 text-emerald-300 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+<i class="fa-solid fa-people-roof"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">शहडोल के किसानों को सहयोग</h3>
+<p class="text-stone-300 text-sm leading-relaxed">आपके द्वारा भुगतान की जाने वाली राशि सीधे स्थानीय उत्पादक किसानों और जनजातीय परिवारों को आत्मनिर्भर बनाती है।</p>
+</div>
+<div class="bg-forest-900/60 border border-forest-800/80 rounded-2xl p-6 hover:bg-forest-900 transition group">
+<div class="w-12 h-12 rounded-xl bg-sky-400/20 text-sky-300 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+<i class="fa-solid fa-truck-ramp-box"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">त्वरित होम डिलीवरी</h3>
+<p class="text-stone-300 text-sm leading-relaxed">शहडोल शहर, सोहागपुर, बुढ़ार व आसपास के इलाकों में तेज़ व सुरक्षित डोरस्टेप डिलीवरी सेवा।</p>
+</div>
+<div class="bg-forest-900/60 border border-forest-800/80 rounded-2xl p-6 hover:bg-forest-900 transition group">
+<div class="w-12 h-12 rounded-xl bg-rose-400/20 text-rose-300 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+<i class="fa-brands fa-whatsapp"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">सीधा व पारदर्शी ऑर्डर</h3>
+<p class="text-stone-300 text-sm leading-relaxed">कोई जटिल पासवर्ड या लॉगिन नहीं। अपनी कार्ट बनाएं और सीधे विक्रेता से WhatsApp पर बात करके आश्वस्त हों।</p>
+</div>
 </div>
 </div>
 </section>
-<section class="section" id="productSection">
-<h2>हमारे उत्पाद 🛍️</h2>
-<p class="muted">अपनी पसंद के उत्पाद चुनें और कार्ट में जोड़ें।</p>
-<input class="search" id="search" oninput="renderProducts()" placeholder="🔍 उत्पाद खोजें..."/>
-<div class="categories" id="categories"></div>
-<div class="grid" id="productGrid"></div>
-<p class="muted" id="noProducts" style="display:none">कोई उत्पाद नहीं मिला। दूसरे नाम से खोजें।</p>
-</section>
-<section class="section" id="cartSection">
-<h2>🛒 आपकी शॉपिंग कार्ट</h2>
-<div class="panel">
-<div id="cartItems"></div>
-<div class="total"><span>कुल उत्पाद राशि</span><span id="cartTotal">₹0</span></div>
-<p class="muted">डिलीवरी शुल्क की पुष्टि विक्रेता WhatsApp पर करेंगे।</p>
-<button class="primary" onclick="checkoutCart()" style="width:100%">आगे बढ़ें और ऑर्डर करें</button>
-<button class="direct" onclick="clearCart()" style="width:100%;margin-top:9px">कार्ट खाली करें</button>
+<!-- How It Works (Step-by-step) -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20" id="howItWorks">
+<div class="text-center max-w-2xl mx-auto mb-14">
+<span class="text-forest-700 text-xs font-extrabold uppercase tracking-widest">आसान प्रक्रिया</span>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-forest-950 mt-2">ऑर्डर कैसे करें?</h2>
+<p class="text-stone-500 text-sm sm:text-base mt-2">केवल 3 आसान चरणों में शुद्ध देसी उत्पाद आपके घर पर</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+<div class="bg-white rounded-3xl p-8 border border-stone-200/90 shadow-sm relative text-center flex flex-col items-center">
+<div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-black mb-6">
+          1
+        </div>
+<h3 class="text-lg font-bold text-forest-950 mb-2">उत्पाद कार्ट में जोड़ें</h3>
+<p class="text-stone-500 text-sm leading-relaxed">वेबसाइट से अपनी पसंद के अनुसार मात्रा (किलो/ग्राम) तय करके 'कार्ट में जोड़ें' पर क्लिक करें।</p>
+</div>
+<div class="bg-white rounded-3xl p-8 border border-stone-200/90 shadow-sm relative text-center flex flex-col items-center">
+<div class="w-16 h-16 rounded-2xl bg-emerald-100 text-forest-800 flex items-center justify-center text-2xl font-black mb-6">
+          2
+        </div>
+<h3 class="text-lg font-bold text-forest-950 mb-2">अपना डिलीवरी पता भरें</h3>
+<p class="text-stone-500 text-sm leading-relaxed">कार्ट चेकआउट में अपना नाम, मोबाइल नंबर, गाँव/शहर और पिन कोड दर्ज करें।</p>
+</div>
+<div class="bg-white rounded-3xl p-8 border border-stone-200/90 shadow-sm relative text-center flex flex-col items-center">
+<div class="w-16 h-16 rounded-2xl bg-forest-900 text-amber-300 flex items-center justify-center text-2xl font-black mb-6">
+          3
+        </div>
+<h3 class="text-lg font-bold text-forest-950 mb-2">WhatsApp पर पुष्टि करें</h3>
+<p class="text-stone-500 text-sm leading-relaxed">ऑर्डर तुरंत WhatsApp पर विक्रेता को भेजा जाएगा। वे उपलब्धता और डिलीवरी समय तय करेंगे।</p>
+</div>
 </div>
 </section>
-<section class="section" id="checkoutSection">
-<h2>📋 ऑर्डर की जानकारी</h2>
-<p class="muted">अपना सही नाम, मोबाइल नंबर और पता भरें। आपकी जानकारी WhatsApp ऑर्डर संदेश में शामिल होगी।</p>
-<div class="panel">
-<form id="checkoutForm">
-<div class="form-grid">
-<div><label for="customerName">पूरा नाम *</label><input id="customerName" maxlength="80" placeholder="अपना नाम" required=""/></div>
-<div><label for="customerPhone">मोबाइल नंबर *</label><input id="customerPhone" inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" placeholder="10 अंकों का नंबर" required=""/></div>
-<div class="full"><label for="customerAddress">पूरा पता *</label><textarea id="customerAddress" maxlength="300" placeholder="मकान नंबर, मोहल्ला, सड़क" required=""></textarea></div>
-<div><label for="customerCity">गाँव / शहर *</label><input id="customerCity" maxlength="80" placeholder="गाँव या शहर" required=""/></div>
-<div><label for="customerPin">पिन कोड *</label><input id="customerPin" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="6 अंकों का पिन कोड" required=""/></div>
-<div class="full"><label for="customerNotes">अतिरिक्त जानकारी (वैकल्पिक)</label><textarea id="customerNotes" maxlength="300" placeholder="डिलीवरी से संबंधित जानकारी"></textarea></div>
+<!-- Customer Reviews / Testimonials -->
+<section class="bg-stone-100/70 border-y border-stone-200/80 py-16" id="reviewsSection">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-2xl mx-auto mb-12">
+<span class="text-forest-700 text-xs font-bold uppercase tracking-wider">संतुष्ट ग्राहक</span>
+<h2 class="text-3xl font-extrabold text-forest-950 mt-1">शहडोल के परिवारों का विश्वास</h2>
 </div>
-<button class="primary" style="width:100%" type="submit">📲 WhatsApp पर ऑर्डर भेजें</button>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm">
+<div class="flex items-center gap-1 text-amber-400 text-sm mb-3">
+<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+</div>
+<p class="text-stone-600 text-sm leading-relaxed italic mb-4">"अमरकंटक का शहद और कोदो मिलेट दोनों बहुत ही शुद्ध निकले। बाज़ार में मिलने वाले ब्रांडेड शहद से कहीं बेहतर प्राकृतिक स्वाद है।"</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-forest-100 text-forest-900 font-bold flex items-center justify-center text-sm">
+              अ.श.
+            </div>
+<div>
+<div class="text-sm font-bold text-forest-950">आलोक शर्मा</div>
+<div class="text-xs text-stone-500">गांधी चौक, शहडोल</div>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm">
+<div class="flex items-center gap-1 text-amber-400 text-sm mb-3">
+<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+</div>
+<p class="text-stone-600 text-sm leading-relaxed italic mb-4">"देसी अरहर दाल बिल्कुल वैसी ही खुशबू देती है जैसी हमारे गाँव में दादी बनाती थीं। हाथ की चक्की की दाल का स्वाद ही अलग होता है।"</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-sm">
+              सु.व.
+            </div>
+<div>
+<div class="text-sm font-bold text-forest-950">सुनीता वर्मा</div>
+<div class="text-xs text-stone-500">बुढ़ार रोड, शहडोल</div>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm">
+<div class="flex items-center gap-1 text-amber-400 text-sm mb-3">
+<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+</div>
+<p class="text-stone-600 text-sm leading-relaxed italic mb-4">"WhatsApp पर ऑर्डर करना बेहद आसान था। अगले ही दिन डिलीवरी मिल गई और पैकेजिंग भी बहुत साफ़-सुथरी थी।"</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-emerald-100 text-forest-800 font-bold flex items-center justify-center text-sm">
+              रा.म.
+            </div>
+<div>
+<div class="text-sm font-bold text-forest-950">राजेश मिश्रा</div>
+<div class="text-xs text-stone-500">सोहागपुर, शहडोल</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Suggest a Product & Frequently Asked Questions (2 Column) -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20" id="faqSection">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- FAQ Accordions (7 Columns) -->
+<div class="lg:col-span-7 space-y-4">
+<div>
+<span class="text-forest-700 text-xs font-extrabold uppercase tracking-wider">सहायता केंद्र</span>
+<h2 class="text-2xl sm:text-3xl font-extrabold text-forest-950 mt-1 mb-6">अक्सर पूछे जाने वाले सवाल (FAQ)</h2>
+</div>
+<div class="space-y-3" id="faqAccordion">
+<div class="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
+<button class="w-full px-5 py-4 text-left font-bold text-forest-950 flex items-center justify-between gap-4 hover:bg-stone-50" onclick="toggleFaq(this)">
+<span>ऑर्डर करने के बाद डिलीवरी कैसे और कब होगी?</span>
+<i class="fa-solid fa-chevron-down text-xs text-stone-400 transition-transform duration-200"></i>
+</button>
+<div class="px-5 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+              जैसे ही आप WhatsApp पर ऑर्डर भेजते हैं, हमारी टीम 15-30 मिनट में उपलब्धता की पुष्टि करती है। शहडोल स्थानीय पते पर डिलीवरी 24 घंटे के अंदर कर दी जाती है।
+            </div>
+</div>
+<div class="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
+<button class="w-full px-5 py-4 text-left font-bold text-forest-950 flex items-center justify-between gap-4 hover:bg-stone-50" onclick="toggleFaq(this)">
+<span>भुगतान (Payment) का क्या तरीका है?</span>
+<i class="fa-solid fa-chevron-down text-xs text-stone-400 transition-transform duration-200"></i>
+</button>
+<div class="px-5 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3 hidden">
+              आप डिलीवरी के समय नकद (Cash on Delivery) या PhonePe, Google Pay, Paytm व BHIM UPI से ऑनलाइन भुगतान कर सकते हैं।
+            </div>
+</div>
+<div class="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
+<button class="w-full px-5 py-4 text-left font-bold text-forest-950 flex items-center justify-between gap-4 hover:bg-stone-50" onclick="toggleFaq(this)">
+<span>क्या उत्पाद वास्तव में 100% शुद्ध और स्थानीय हैं?</span>
+<i class="fa-solid fa-chevron-down text-xs text-stone-400 transition-transform duration-200"></i>
+</button>
+<div class="px-5 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3 hidden">
+              जी हाँ! GramBazaar का उद्देश्य ही शहडोल व विंध्य क्षेत्र के किसानों और जनजातीय परिवारों के प्रामाणिक, बिना रासायनिक पॉलिश वाले उत्पादों को ग्राहकों तक पहुँचाना है।
+            </div>
+</div>
+<div class="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
+<button class="w-full px-5 py-4 text-left font-bold text-forest-950 flex items-center justify-between gap-4 hover:bg-stone-50" onclick="toggleFaq(this)">
+<span>अगर कोई उत्पाद पसंद न आए तो क्या रिटर्न संभव है?</span>
+<i class="fa-solid fa-chevron-down text-xs text-stone-400 transition-transform duration-200"></i>
+</button>
+<div class="px-5 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3 hidden">
+              यदि डिलीवरी के समय उत्पाद में कोई कमी या पैकेजिंग खराब पाई जाती है, तो आप तुरंत डिलीवरी कर्मी को वापस कर सकते हैं या WhatsApp पर संपर्क कर बदलवा सकते हैं।
+            </div>
+</div>
+</div>
+</div>
+<!-- Suggest a Product Form (5 Columns) -->
+<div class="lg:col-span-5">
+<div class="bg-emerald-50/70 border border-emerald-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+<div class="flex items-center gap-2.5 text-forest-900 font-bold mb-2">
+<div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-sm">
+<i class="fa-solid fa-lightbulb"></i>
+</div>
+<h3 class="text-xl font-bold">हमें नया उत्पाद सुझाएँ</h3>
+</div>
+<p class="text-stone-600 text-xs sm:text-sm mb-6 leading-relaxed">
+            क्या आप शहडोल का कोई विशेष उत्पाद (जैसे महुआ, कुटकी, बाड़ी, पापड़ या विशेष जड़ी-बूटी) यहाँ देखना चाहते हैं?
+          </p>
+<form class="space-y-4" id="suggestForm" onsubmit="handleSuggestSubmit(event)">
+<div>
+<label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1">आपका नाम (वैकल्पिक)</label>
+<input class="w-full px-3.5 py-2.5 bg-white border border-stone-300 rounded-xl text-sm focus:ring-2 focus:ring-forest-600 outline-none" id="sugName" placeholder="अपना नाम लिखें" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1">उत्पाद का नाम *</label>
+<input class="w-full px-3.5 py-2.5 bg-white border border-stone-300 rounded-xl text-sm focus:ring-2 focus:ring-forest-600 outline-none" id="sugProduct" placeholder="जैसे महुआ का तेल, कुटकी, अलसी..." required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1">अतिरिक्त जानकारी या स्रोत</label>
+<textarea class="w-full px-3.5 py-2.5 bg-white border border-stone-300 rounded-xl text-sm focus:ring-2 focus:ring-forest-600 outline-none" id="sugNote" placeholder="गाँव या क्षेत्र जहाँ यह मिलता है..." rows="2"></textarea>
+</div>
+<button class="w-full py-3 bg-forest-900 hover:bg-forest-800 text-white font-bold rounded-xl text-sm shadow-md transition flex items-center justify-center gap-2" type="submit">
+<i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+<span>WhatsApp पर सुझाव भेजें</span>
+</button>
 </form>
 </div>
-</section>
-<section class="section">
-<h2>💡 हमें उत्पाद सुझाएँ</h2>
-<p class="muted">आप कौन-सा स्थानीय उत्पाद GramBazaar पर देखना चाहते हैं?</p>
-<div class="panel">
-<form id="suggestForm">
-<label for="suggestName">आपका नाम (वैकल्पिक)</label>
-<input id="suggestName" maxlength="80" placeholder="आपका नाम"/>
-<label for="suggestProduct">उत्पाद का नाम *</label>
-<input id="suggestProduct" maxlength="100" placeholder="जैसे महुआ, कोदो, कुटकी" required=""/>
-<label for="suggestNotes">अतिरिक्त सुझाव</label>
-<textarea id="suggestNotes" maxlength="300" placeholder="कोई अन्य जानकारी"></textarea>
-<button class="primary" type="submit">WhatsApp पर सुझाव भेजें</button>
-</form>
+</div>
 </div>
 </section>
-<section class="section">
-<h2>📦 ऑर्डर कैसे करें?</h2>
-<div class="steps">
-<div class="step"><b>🛍️</b><h3>1. उत्पाद चुनें</h3><p class="muted">अपनी पसंद के उत्पाद कार्ट में जोड़ें।</p></div>
-<div class="step"><b>📝</b><h3>2. पता भरें</h3><p class="muted">अपना नाम, मोबाइल और पता दें।</p></div>
-<div class="step"><b>📲</b><h3>3. WhatsApp करें</h3><p class="muted">ऑर्डर संदेश जाँचकर भेजें।</p></div>
+<!-- Footer Section -->
+<footer class="bg-forest-950 text-white border-t border-forest-900 pt-16 pb-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-forest-900/80">
+<!-- Brand Info -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-forest-800 flex items-center justify-center text-amber-300 font-bold text-xl">
+              🌾
+            </div>
+<div>
+<span class="text-xl font-black text-white">GramBazaar</span>
+<p class="text-xs text-stone-400">ग्रामबाज़ार • शहडोल</p>
 </div>
-</section>
-<section class="section">
-<h2>🌱 हमारे बारे में</h2>
-<div class="panel">
-<p>GramBazaar का उद्देश्य शहडोल और आसपास के क्षेत्रों के स्थानीय उत्पादों को ग्राहकों तक पहुँचाने में मदद करना है। हमारा लक्ष्य ग्राहकों और स्थानीय विक्रेताओं के बीच खरीदारी आसान बनाना है।</p>
-<div class="notice">महत्वपूर्ण: वेबसाइट पर दिखाई गई कीमतें उदाहरण हैं। ऑर्डर करने से पहले उत्पाद की उपलब्धता, वास्तविक कीमत और डिलीवरी शुल्क की पुष्टि विक्रेता से करें।</div>
 </div>
-<h2>❓ अक्सर पूछे जाने वाले सवाल</h2>
-<div class="panel">
-<details><summary>ऑर्डर कैसे पूरा होगा?</summary><p class="muted">WhatsApp पर संदेश भेजें। विक्रेता उपलब्धता, कीमत और डिलीवरी की पुष्टि करेंगे।</p></details>
-<hr style="border:0;border-top:1px solid #eee;margin:15px 0"/>
-<details><summary>क्या डिलीवरी मुफ्त है?</summary><p class="muted">डिलीवरी शुल्क और उपलब्ध क्षेत्र की जानकारी विक्रेता से लें।</p></details>
-<hr style="border:0;border-top:1px solid #eee;margin:15px 0"/>
-<details><summary>क्या कीमतें निश्चित हैं?</summary><p class="muted">नहीं, अभी दी गई कीमतें उदाहरण हैं। वास्तविक कीमत विक्रेता से पुष्टि करें।</p></details>
+<p class="text-stone-300 text-xs sm:text-sm leading-relaxed">
+            शहडोल, अमरकंटक और विंध्य अंचल के किसानों से सीधे आपके रसोईघर तक शुद्ध, जैविक और प्रामाणिक खाद्य उत्पाद पहुंचाने की समर्पित पहल।
+          </p>
 </div>
-</section>
-<footer>
-<div class="footer-inner">
-<h2>🌾 GramBazaar</h2>
-<p>शहडोल के स्थानीय उत्पाद, आपके लिए।</p>
-<p>संपर्क: +91 92036 22969</p>
-<a class="direct" href="https://wa.me/919203622969" rel="noopener noreferrer" style="display:inline-block;text-decoration:none" target="_blank">WhatsApp पर संपर्क करें</a>
-<p style="font-size:12px;margin-top:25px">© <span id="year"></span> GramBazaar. सर्वाधिकार सुरक्षित।</p>
+<!-- Quick Links -->
+<div class="space-y-3">
+<h4 class="text-sm font-bold uppercase tracking-wider text-amber-300">त्वरित नेविगेशन</h4>
+<ul class="space-y-2 text-xs sm:text-sm text-stone-300">
+<li><a class="hover:text-white transition" href="#productsSection">सभी उत्पाद सूची</a></li>
+<li><a class="hover:text-white transition" href="#whyUsSection">शुद्धता व लाभ</a></li>
+<li><a class="hover:text-white transition" href="#howItWorks">ऑर्डर करने की प्रक्रिया</a></li>
+<li><a class="hover:text-white transition" href="#faqSection">अक्सर पूछे जाने वाले सवाल</a></li>
+</ul>
+</div>
+<!-- Contact Details -->
+<div class="space-y-3">
+<h4 class="text-sm font-bold uppercase tracking-wider text-amber-300">संपर्क व सहायता</h4>
+<div class="space-y-2.5 text-xs sm:text-sm text-stone-300">
+<div class="flex items-start gap-2.5">
+<i class="fa-solid fa-location-dot text-amber-400 mt-1"></i>
+<span>शहडोल, मध्य प्रदेश (पिन: 484001)</span>
+</div>
+<div class="flex items-center gap-2.5">
+<i class="fa-solid fa-phone text-amber-400"></i>
+<span>+91 92036 22969</span>
+</div>
+<div class="flex items-center gap-2.5">
+<i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+<span>+91 92036 22969</span>
+</div>
+</div>
+</div>
+<!-- Trust Badges -->
+<div class="space-y-3">
+<h4 class="text-sm font-bold uppercase tracking-wider text-amber-300">स्थानीय अर्थव्यवस्था</h4>
+<div class="p-4 bg-forest-900/60 rounded-2xl border border-forest-800/80 text-xs text-stone-300 leading-relaxed">
+            🌿 आपके हर ऑर्डर से स्थानीय जनजातीय किसानों और महिला स्व-सहायता समूहों को सीधा समर्थन मिलता है।
+          </div>
+</div>
+</div>
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
+<p>© <span id="currentYear"></span> GramBazaar (ग्रामबाज़ार). सर्वाधिकार सुरक्षित।</p>
+<p class="flex items-center gap-1">Made with <span class="text-red-400">❤</span> for Shahdol Farmers</p>
+</div>
 </div>
 </footer>
-<a class="whatsapp-float" href="https://wa.me/919203622969" rel="noopener noreferrer" target="_blank">WhatsApp 💬</a>
+<!-- Slide-over Cart & Checkout Drawer -->
+<div class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300" id="cartDrawerBackdrop" onclick="toggleCartDrawer(false)"></div>
+<div class="fixed inset-y-0 right-0 z-50 w-full sm:max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out" id="cartDrawer">
+<!-- Drawer Header -->
+<div class="px-6 py-5 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-forest-900 text-white flex items-center justify-center text-sm">
+<i class="fa-solid fa-basket-shopping"></i>
+</div>
+<h3 class="text-lg font-bold text-forest-950">आपकी शॉपिंग कार्ट (<span id="drawerCount">0</span>)</h3>
+</div>
+<button class="w-8 h-8 rounded-lg hover:bg-stone-200 text-stone-500 flex items-center justify-center transition" onclick="toggleCartDrawer(false)">
+<i class="fa-solid fa-xmark text-lg"></i>
+</button>
+</div>
+<!-- Drawer Body / Item List -->
+<div class="flex-1 overflow-y-auto p-6 space-y-4" id="drawerCartItems">
+<!-- Items will render here -->
+</div>
+<!-- Drawer Footer / Checkout Form -->
+<div class="border-t border-stone-200 p-6 bg-stone-50/80 space-y-4">
+<!-- Subtotal calculation -->
+<div class="flex items-center justify-between text-base font-bold text-forest-950">
+<span>कुल उत्पाद राशि:</span>
+<span class="text-xl text-forest-700" id="drawerTotal">₹0</span>
+</div>
+<p class="text-[11px] text-stone-500">डिलीवरी शुल्क व समय की पुष्टि विक्रेता WhatsApp पर करेंगे।</p>
+<!-- Customer Checkout Trigger / Form -->
+<div class="hidden space-y-3 pt-2 border-t border-stone-200" id="checkoutFieldsContainer">
+<h4 class="text-xs font-bold uppercase tracking-wider text-forest-900">ऑर्डर डिलीवरी की जानकारी</h4>
+<div class="grid grid-cols-2 gap-2">
+<input class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-forest-600 outline-none" id="custName" placeholder="पूरा नाम *" required="" type="text"/>
+<input class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-forest-600 outline-none" id="custPhone" maxlength="10" placeholder="10 अंक मोबाइल *" required="" type="tel"/>
+</div>
+<textarea class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-forest-600 outline-none" id="custAddress" placeholder="पूरा पता (मकान नंबर, मोहल्ला, सड़क) *" required="" rows="2"></textarea>
+<div class="grid grid-cols-2 gap-2">
+<input class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-forest-600 outline-none" id="custCity" placeholder="गाँव/शहर (उदा. शहडोल) *" required="" type="text"/>
+<input class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-forest-600 outline-none" id="custPin" maxlength="6" placeholder="पिन कोड *" required="" type="text"/>
+</div>
+<input class="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-forest-600 outline-none" id="custNotes" placeholder="अतिरिक्त निर्देश (वैकल्पिक)" type="text"/>
+</div>
+<div class="space-y-2">
+<button class="w-full py-3.5 bg-forest-900 hover:bg-forest-800 text-white font-extrabold rounded-xl shadow-lg shadow-forest-900/20 transition flex items-center justify-center gap-2 text-sm" id="checkoutActionBtn" onclick="handleCheckoutStep()">
+<span>ऑर्डर की जानकारी भरें</span>
+<i class="fa-solid fa-arrow-right text-xs"></i>
+</button>
+<button class="w-full py-2 text-stone-500 hover:text-red-600 text-xs font-semibold transition" onclick="clearAllCart()">
+          पूरी कार्ट खाली करें
+        </button>
+</div>
+</div>
+</div>
+<!-- Floating Sticky WhatsApp Quick Button -->
+<a class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-5 py-3.5 shadow-2xl flex items-center gap-2.5 font-bold text-sm transform hover:scale-105 active:scale-95 transition-all" href="https://wa.me/919203622969" target="_blank">
+<i class="fa-brands fa-whatsapp text-2xl"></i>
+<span class="hidden sm:inline">WhatsApp पर सहायता</span>
+</a>
+<!-- Toast Notification Container -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-forest-950 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-semibold opacity-0 pointer-events-none transform translate-y-4 transition-all duration-300" id="toastNotification">
+<i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+<span id="toastMessage">उत्पाद कार्ट में जोड़ दिया गया है</span>
+</div>
+<!-- Application Logic & Dataset -->
 <script>
-"use strict";
+    "use strict";
 
-const SELLER_WHATSAPP = "919203622969";
+    const SELLER_WHATSAPP = "919203622969";
 
-const products = [
- {id:1,name:"स्थानीय चावल",price:60,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1VrZ7K17i6T8mZc1YmBZzJ8Mic_Vy2w2F6u4Ursm7OtUHUHIVkiRfqui0nEcvpxfyZUl4i0pC6uRD-cdZ3XE_Gop64W-BJD3pDqlQuZvWUSx12r9-WZHujkQ5zL9nb4Nxc9Xj_uy0NbSUA2lm1gWH1-tycxJV5gtsvhOtDvUlAOrBiXqyLoFRkIv6xaPeCCrpTpiMiE52p-FEpDPkzHEPxmjZcpZ5DCEL8sqH4P-iylEyf5B-yeSuVkEKo",desc:"रोज़ाना के भोजन के लिए चावल"},
- {id:2,name:"देसी अरहर दाल",price:140,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1UmvhnHVz1v-mpI_W8LLSOhZlBYa6SrrdFBT_o9MvSWjU3rR6FfTdC_XeHoylWJe_xqQcT8fSZEeWFQBZr4Qd8Kn9drO9sy5U7UopodSPlAZLAoWt4TVsdgAEAznk-q6Rx-EoOemhpXAeOZ0Xq7hAwPcVIuqDCbQlQ571JsrETpzySvyhD8BHwZJ3V2jbtk-Z8ueOcz8mYHeviCkNGZ9zIuI0lU_d16hR1x2YnkBGOxFcGHMy4JccnUGlY",desc:"घर के भोजन के लिए अरहर दाल"},
- {id:3,name:"चना दाल",price:90,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1WlYrk_0jV0tVukrS8lY7IM98MtM-LUVtL5DfOyjL5aMbhuPwlawaram9om3C4603FC8Yo6MSBuOV-6OgAf9SSpPM2SKvafkPU6hba2XcgUzou7TKAzyoDRjofJEnFe5Vaj2KYDr4SL9RAd8wCfoVnKNVwsSYOfuGA11QAjyHWmZ3MMOTkaXikoaEe_0rlXFr6jmj6fhJXUZ5eSMfGW5FjEMGS0lInEvgcoM9Z6cyBwAazySC3AkoOOcDw",desc:"स्वादिष्ट चना दाल"},
- {id:4,name:"स्थानीय गेहूँ",price:35,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1Vl8AtVMqOvPRV2vTaoGjoZKaD4rg4FzICM4QeGF8PkAw4q5wbtw3HtSCh1UDEHY61c3gR3lRG2gBS0t2_8FRe74NN4W6P36tALo6uk7I9RHMqmiRUhy22-5bZUE9mbzfTHBeCmbodRc9BU1F5FOqaEqFsbp-8-xnG0WGB7cfm6Dfdrt1SbVM1uLg2_0RLO5tbU3SOIZGLC4h5U-xtMIo3014Nig2UejVZnggSrkHdt6Da06O4aUcNFWfQ",desc:"रोज़ाना उपयोग के लिए गेहूँ"},
- {id:5,name:"देसी चना",price:80,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1UgZw1Nvc73lWPl3ibABwUeqwwjEswKHfAJeFZXrUS4S_Qx56-3D07O9xeNemIfU9dgCrxtFjt8inSrP0MbLiuu5Q3KJwnQ5csjBKG79I7dwd8_dGynKpAy8TYXi3lCsgYv3WaSI-Zkk7CsY0FLsY81hvBKQHVhJLSvIAYB1hN1i2lKOBcmkrrpCOTWePcsM8Ga2L8cmennViPqqlqpb9pdWp4YFFCBscVtb7MrFsDDw4pepT0o6nsEp4o",desc:"खाने और पकाने के लिए चना"},
- {id:6,name:"सरसों",price:75,unit:"प्रति किलो",category:"कृषि उत्पाद",image:"https://lh3.googleusercontent.com/aida/AEtjO1XKU1FbEXwYpwhym7FlA5uKlCCyBCf66QHgNngW-jgiwM677YjgLyN0QdBHl0AP2ZR_WDzwU5jeNsKt9XhQMwqHWnlRt2rfOoHfLD7G4uva7FAc7OA145IYuq7QrPtH_dnBGQ3s8JOmNkBKpR11NKN4D8pV32x-Mnrwn22hrv6KoAeKOtX5QCUPOtdW6jyg9n3wJ5y7c2jOL4vjZqM6yGEsSN-lxXhqLP5auGij5JaItouXAF1Fb0qbpKw",desc:"स्थानीय कृषि उत्पाद"},
- {id:7,name:"स्थानीय शहद",price:250,unit:"प्रति 500 ग्राम",category:"स्थानीय खाद्य पदार्थ",image:"https://lh3.googleusercontent.com/aida/AEtjO1UYVjE6TIo9EI9CUA4gTos25HrFs6Pzz5x1hwcgejFqbOB6reBR78y1kpxQ38q-A7MhFgl6jEN_WwkciFRUPwAHTB8PfUuJWh2YjwaQGpA76PX2CPIeCydY8svBrs5qxQJkdR99EhycoEUK-iXX9AsCBR-xeUsYpNicuCzPQPsh5p2zZNqDQxlHJM62V8vOa9e4aoVbiUmkNOqy90we5St_A4OnTqkLTnWHI1VFXEjUAfh5-AfOOX11MQ",desc:"शहद की उपलब्धता विक्रेता से जाँचें"},
- {id:8,name:"देसी गुड़",price:80,unit:"प्रति किलो",category:"स्थानीय खाद्य पदार्थ",image:"https://lh3.googleusercontent.com/aida/AEtjO1XVs0cTWJl-kPiToftWXUfunQ7ofYGDnfLnfXnJ-3WoruGqgfaQuhHJVfaMIpUZT_qZzuXLicJ-Vt1Vhu_CrRYWB5wT_f1X4K1AKgO8s9iIC_vIZrOiWEU8DrFYiht-I6OPkFj0lUZYY3vmM5AxFlOELK_Y_lc3kNjgLMYmh1Ue0zyZFtnb7eFNvRRUbp37RGPslVXljXuRrzVCMnV2fByar9geG-jBOSzhSsQnxplX6bL1TB44zQe5bFU",desc:"चाय और पारंपरिक व्यंजनों के लिए"},
- {id:9,name:"हल्दी पाउडर",price:120,unit:"प्रति 250 ग्राम",category:"मसाले",image:"https://lh3.googleusercontent.com/aida/AEtjO1WWKzcUvOsNNQWaNPr9lgeozj0WNbaLnlfaZesfBxrk3hbn88MlC310BZMfc9LEQ4UpLdddli6Aa2hP6t8HO91hDBcqjf9fyyMMSVVqJ7lwCfzI02T-cwZ5bDobFAhc520LfigAlSSu1qEYUEscloqyLUw8X4kJH6aNAfR0AsbjBGd0Vlm8h5efoT8lVjYdp4OjzH_H9sA5mKfKlcWXiat-_MfFZr1kAb8rylrpxKJX5tATjM_noX_JOWw",desc:"खाना पकाने के लिए हल्दी"},
- {id:10,name:"लाल मिर्च पाउडर",price:100,unit:"प्रति 250 ग्राम",category:"मसाले",image:"https://lh3.googleusercontent.com/aida/AEtjO1UocRSUpS07-DgslAM7460CdoKHuAl7rkmjhRigW8h0HvY47kUBVTuyZAKlvvcV5RoIpfN3kVbCH9V3Avr5DbPHEezaUo9jLhRROo5ulxGxYGpnkw0Z3CxeUsHH1am1VHRUueq_reyFS2-FyJmSaJC4_iR0dvA-SuQkkjhWxWGbH99TdmOoIDTgym0aFi7ggP512MFlVuh4qdTv6Cp0AHZtWMr6BZD5ZpPP1PTTl5MaThov7cJKNyHzIw",desc:"व्यंजनों के लिए लाल मिर्च"},
- {id:11,name:"मूंग दाल",price:120,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1XM1o_sXKS-cQ-X6zF2vgx7YzQSu8XcY4d74RqfUkP1WJ4A6skTUk-qTAc56zdvJG8EsmkPgD2M4bwzx4hDGjjPdMdhXLfo35yHbY0zW9S3eDaJI3mov-w3f5Vy1mU6W7a9LK3PxQ7ndZ2ie2HbLvOSATbGxfarx876qWeeGrKze-a2unk-JVCAftFfE4reET67iuGzKZUyznF-1UWvbmHHrxGAd-tfUM3k0zfl_nwyEhk0zDprJ7C4wxM",desc:"दैनिक उपयोग की मूंग दाल"},
- {id:12,name:"उड़द दाल",price:130,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1V-EtahZ_ljmzR-55Ij_NxHBWYlO_yuRJRmgAfXA0rip4Lm60kB20Cua7BD6Noc9AmgFVFYcTCcIKXp1mlgZjYZGBY2F8N5DoLLZKgpcquJ2IO9QiVQe0uW2w6KlUESvNEFlCmWwV6i1_dzKKiwyp90JSnx4I2afQUP7Tndem0x0YW1Dct1kt_sQolRfY5SYqzXc-Q7jqNi4xBVeIVANaOqvoHxlpuCK1ZeMgox322ZnPx4j0C03fkc3Q",desc:"पारंपरिक व्यंजनों के लिए"},
- {id:13,name:"मक्का",price:35,unit:"प्रति किलो",category:"कृषि उत्पाद",image:"https://lh3.googleusercontent.com/aida/AEtjO1VHhzH11_1usF8HhDng3l6FpmI0nJvJlQBpcC6SjzLcyE9ySYnbLBm_pW9XRlucWoXvoC_OURE7mHPULAPpwomHCf8khJWMrSG3lrnfqGFB5g9YfFSD1ZnARjLyP6V_82jmLgzIPY2RV0clv0aeNCpIkJnruvDllMfCDJfUqWDPKvwHg7sY-7Xh-XysKaQLJVLlXKtcBrlKO7_eUJLFWYo7ahNp7dPWt0axjX4NN1LCSBKlyddXCw49Nks",desc:"स्थानीय मक्का"},
- {id:14,name:"स्थानीय अचार",price:100,unit:"प्रति 500 ग्राम",category:"स्थानीय खाद्य पदार्थ",image:"https://lh3.googleusercontent.com/aida/AEtjO1WKZgQpbF-ZuSMXkZvM8NfmgVpKBPkHRdOXZJ5pc7f0Yovjg_ZqfQUCCoF58PqblTcZCCC7HQvKzHXuZPFZqjdJjTBC7NIo7XwBjqTCwTX0UX-uHVtgRkx4ScoU8UIeqH1xinJhsQAwrGK4TXzItfxrIeNBiylAIDPwWy97MQCDCaOjUk3ShPF2RojrlkMONe3DwodnW2JzK4G26XpVwcWyT2xO4UxGNDcAcfOKej380qzycjAhQ9Nwzrs",desc:"उपलब्ध स्वाद के बारे में पूछें"},
- {id:15,name:"कोदो अनाज",price:80,unit:"प्रति किलो",category:"अनाज एवं दालें",image:"https://lh3.googleusercontent.com/aida/AEtjO1U16zG5Ob3pi1bmQ1dd1rx7qJOexHc-Gp8HfC0RT_QrsxfvTNcGXuBL3CVF29lM4z9aQxr4Shedkuv9GFJSl_e7tWbu8HJlk7iuOAt8x5Ebl_K8ndA1o8aaI5eK_Qyj7M9Cv-1BUcC_7rZ7wr3x3pFm2aTu5Rn3_jCuHUc0NS0QWSavyAruPfDpWXB6JZh8rUPF5jhXJnIpU_WEmLNdR_9-RAvrzxyYCQg19ecuDDzMVcZHG-uEAJb5Zg",desc:"स्थानीय क्षेत्र में प्रचलित अनाज"}
-];
+    // 15 Comprehensive, Authentic Local Products with High-Resolution Photography
+    const productsData = [
+      {
+        id: 1,
+        name: "स्थानीय चावल (देसी बासमती / क्रांति)",
+        category: "अनाज एवं दालें",
+        price: 60,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1VrZ7K17i6T8mZc1YmBZzJ8Mic_Vy2w2F6u4Ursm7OtUHUHIVkiRfqui0nEcvpxfyZUl4i0pC6uRD-cdZ3XE_Gop64W-BJD3pDqlQuZvWUSx12r9-WZHujkQ5zL9nb4Nxc9Xj_uy0NbSUA2lm1gWH1-tycxJV5gtsvhOtDvUlAOrBiXqyLoFRkIv6xaPeCCrpTpiMiE52p-FEpDPkzHEPxmjZcpZ5DCEL8sqH4P-iylEyf5B-yeSuVkEKo",
+        badge: "नया धान",
+        desc: "शहडोल के स्थानीय खेतों से ताजा सुगंधित और प्राकृतिक सफेद चावल।"
+      },
+      {
+        id: 2,
+        name: "देसी अरहर दाल (तुअर दाल)",
+        category: "अनाज एवं दालें",
+        price: 140,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1UmvhnHVz1v-mpI_W8LLSOhZlBYa6SrrdFBT_o9MvSWjU3rR6FfTdC_XeHoylWJe_xqQcT8fSZEeWFQBZr4Qd8Kn9drO9sy5U7UopodSPlAZLAoWt4TVsdgAEAznk-q6Rx-EoOemhpXAeOZ0Xq7hAwPcVIuqDCbQlQ571JsrETpzySvyhD8BHwZJ3V2jbtk-Z8ueOcz8mYHeviCkNGZ9zIuI0lU_d16hR1x2YnkBGOxFcGHMy4JccnUGlY",
+        badge: "हाथ की चक्की",
+        desc: "बिना किसी रासायनिक पॉलिश के पारंपरिक हाथ की चक्की से दरी दाल।"
+      },
+      {
+        id: 3,
+        name: "देसी चना दाल",
+        category: "अनाज एवं दालें",
+        price: 90,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1WlYrk_0jV0tVukrS8lY7IM98MtM-LUVtL5DfOyjL5aMbhuPwlawaram9om3C4603FC8Yo6MSBuOV-6OgAf9SSpPM2SKvafkPU6hba2XcgUzou7TKAzyoDRjofJEnFe5Vaj2KYDr4SL9RAd8wCfoVnKNVwsSYOfuGA11QAjyHWmZ3MMOTkaXikoaEe_0rlXFr6jmj6fhJXUZ5eSMfGW5FjEMGS0lInEvgcoM9Z6cyBwAazySC3AkoOOcDw",
+        badge: "उच्च प्रोटीन",
+        desc: "सुनहरी दानेदार स्वादिष्ट देसी चना दाल, शुद्ध और पौष्टिक।"
+      },
+      {
+        id: 4,
+        name: "स्थानीय शरबती गेहूँ",
+        category: "अनाज एवं दालें",
+        price: 35,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1Vl8AtVMqOvPRV2vTaoGjoZKaD4rg4FzICM4QeGF8PkAw4q5wbtw3HtSCh1UDEHY61c3gR3lRG2gBS0t2_8FRe74NN4W6P36tALo6uk7I9RHMqmiRUhy22-5bZUE9mbzfTHBeCmbodRc9BU1F5FOqaEqFsbp-8-xnG0WGB7cfm6Dfdrt1SbVM1uLg2_0RLO5tbU3SOIZGLC4h5U-xtMIo3014Nig2UejVZnggSrkHdt6Da06O4aUcNFWfQ",
+        badge: "देसी शरबती",
+        desc: "रोटियों को लंबे समय तक नरम रखने वाला उच्च गुणवत्ता का स्थानीय गेहूँ।"
+      },
+      {
+        id: 5,
+        name: "देसी काला चना",
+        category: "अनाज एवं दालें",
+        price: 80,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1UgZw1Nvc73lWPl3ibABwUeqwwjEswKHfAJeFZXrUS4S_Qx56-3D07O9xeNemIfU9dgCrxtFjt8inSrP0MbLiuu5Q3KJwnQ5csjBKG79I7dwd8_dGynKpAy8TYXi3lCsgYv3WaSI-Zkk7CsY0FLsY81hvBKQHVhJLSvIAYB1hN1i2lKOBcmkrrpCOTWePcsM8Ga2L8cmennViPqqlqpb9pdWp4YFFCBscVtb7MrFsDDw4pepT0o6nsEp4o",
+        badge: "अंकुरण योग्य",
+        desc: "खाने, घुघरी और अंकुरण के लिए उच्च प्रोटीन वाला देसी छोटा चना।"
+      },
+      {
+        id: 6,
+        name: "शुद्ध पीली सरसों",
+        category: "कृषि उत्पाद",
+        price: 75,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1XKU1FbEXwYpwhym7FlA5uKlCCyBCf66QHgNngW-jgiwM677YjgLyN0QdBHl0AP2ZR_WDzwU5jeNsKt9XhQMwqHWnlRt2rfOoHfLD7G4uva7FAc7OA145IYuq7QrPtH_dnBGQ3s8JOmNkBKpR11NKN4D8pV32x-Mnrwn22hrv6KoAeKOtX5QCUPOtdW6jyg9n3wJ5y7c2jOL4vjZqM6yGEsSN-lxXhqLP5auGij5JaItouXAF1Fb0qbpKw",
+        badge: "खेत से सीधा",
+        desc: "कच्ची घानी तेल और तड़के हेतु विंध्य क्षेत्र की ताज़ा पीली सरसों।"
+      },
+      {
+        id: 7,
+        name: "अमरकंटक वन शहद (शुद्ध अपरिष्कृत)",
+        category: "स्थानीय खाद्य पदार्थ",
+        price: 250,
+        unit: "प्रति 500 ग्राम",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1UYVjE6TIo9EI9CUA4gTos25HrFs6Pzz5x1hwcgejFqbOB6reBR78y1kpxQ38q-A7MhFgl6jEN_WwkciFRUPwAHTB8PfUuJWh2YjwaQGpA76PX2CPIeCydY8svBrs5qxQJkdR99EhycoEUK-iXX9AsCBR-xeUsYpNicuCzPQPsh5p2zZNqDQxlHJM62V8vOa9e4aoVbiUmkNOqy90we5St_A4OnTqkLTnWHI1VFXEjUAfh5-AfOOX11MQ",
+        badge: "वनोपज 100% शुद्ध",
+        desc: "अमरकंटक के घने जंगलों से जनजातीय समूहों द्वारा संकलित प्राकृतिक जंगली शहद।"
+      },
+      {
+        id: 8,
+        name: "देसी जैविक गुड़ (कैमिकल-मुक्त)",
+        category: "स्थानीय खाद्य पदार्थ",
+        price: 80,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1XVs0cTWJl-kPiToftWXUfunQ7ofYGDnfLnfXnJ-3WoruGqgfaQuhHJVfaMIpUZT_qZzuXLicJ-Vt1Vhu_CrRYWB5wT_f1X4K1AKgO8s9iIC_vIZrOiWEU8DrFYiht-I6OPkFj0lUZYY3vmM5AxFlOELK_Y_lc3kNjgLMYmh1Ue0zyZFtnb7eFNvRRUbp37RGPslVXljXuRrzVCMnV2fByar9geG-jBOSzhSsQnxplX6bL1TB44zQe5bFU",
+        badge: "पारंपरिक भट्टी",
+        desc: "गन्ने के ताजे रस से बिना किसी रंग या सोडा के तैयार किया गया भूरा गुड़।"
+      },
+      {
+        id: 9,
+        name: "शुद्ध देसी हल्दी पाउडर",
+        category: "मसाले",
+        price: 120,
+        unit: "प्रति 250 ग्राम",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1WWKzcUvOsNNQWaNPr9lgeozj0WNbaLnlfaZesfBxrk3hbn88MlC310BZMfc9LEQ4UpLdddli6Aa2hP6t8HO91hDBcqjf9fyyMMSVVqJ7lwCfzI02T-cwZ5bDobFAhc520LfigAlSSu1qEYUEscloqyLUw8X4kJH6aNAfR0AsbjBGd0Vlm8h5efoT8lVjYdp4OjzH_H9sA5mKfKlcWXiat-_MfFZr1kAb8rylrpxKJX5tATjM_noX_JOWw",
+        badge: "उच्च करक्यूमिन",
+        desc: "प्राकृतिक गांठों को सुखाकर कूटी गई सुगंधित व औषधीय गुणों वाली हल्दी।"
+      },
+      {
+        id: 10,
+        name: "खरल कूटी लाल मिर्च पाउडर",
+        category: "मसाले",
+        price: 100,
+        unit: "प्रति 250 ग्राम",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1UocRSUpS07-DgslAM7460CdoKHuAl7rkmjhRigW8h0HvY47kUBVTuyZAKlvvcV5RoIpfN3kVbCH9V3Avr5DbPHEezaUo9jLhRROo5ulxGxYGpnkw0Z3CxeUsHH1am1VHRUueq_reyFS2-FyJmSaJC4_iR0dvA-SuQkkjhWxWGbH99TdmOoIDTgym0aFi7ggP512MFlVuh4qdTv6Cp0AHZtWMr6BZD5ZpPP1PTTl5MaThov7cJKNyHzIw",
+        badge: "प्राकृतिक रंग",
+        desc: "धूप में सुखाई गई तीखी देसी लाल मिर्च, बिना किसी कृत्रिम रंग के।"
+      },
+      {
+        id: 11,
+        name: "साबुत हरी मूंग दाल",
+        category: "अनाज एवं दालें",
+        price: 120,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1XM1o_sXKS-cQ-X6zF2vgx7YzQSu8XcY4d74RqfUkP1WJ4A6skTUk-qTAc56zdvJG8EsmkPgD2M4bwzx4hDGjjPdMdhXLfo35yHbY0zW9S3eDaJI3mov-w3f5Vy1mU6W7a9LK3PxQ7ndZ2ie2HbLvOSATbGxfarx876qWeeGrKze-a2unk-JVCAftFfE4reET67iuGzKZUyznF-1UWvbmHHrxGAd-tfUM3k0zfl_nwyEhk0zDprJ7C4wxM",
+        badge: "सुपाच्य",
+        desc: "दैनिक स्वास्थ्य व सुपाच्य खिचड़ी के लिए पौष्टिक हरी मूंग दाल।"
+      },
+      {
+        id: 12,
+        name: "देसी काली उड़द दाल",
+        category: "अनाज एवं दालें",
+        price: 130,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1V-EtahZ_ljmzR-55Ij_NxHBWYlO_yuRJRmgAfXA0rip4Lm60kB20Cua7BD6Noc9AmgFVFYcTCcIKXp1mlgZjYZGBY2F8N5DoLLZKgpcquJ2IO9QiVQe0uW2w6KlUESvNEFlCmWwV6i1_dzKKiwyp90JSnx4I2afQUP7Tndem0x0YW1Dct1kt_sQolRfY5SYqzXc-Q7jqNi4xBVeIVANaOqvoHxlpuCK1ZeMgox322ZnPx4j0C03fkc3Q",
+        badge: "पारंपरिक",
+        desc: "दाल मखनी और बरा-मंगौड़ी हेतु शहडोल की प्रसिद्ध देसी काली उड़द।"
+      },
+      {
+        id: 13,
+        name: "स्थानीय पीला मक्का (कॉर्न)",
+        category: "कृषि उत्पाद",
+        price: 35,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1VHhzH11_1usF8HhDng3l6FpmI0nJvJlQBpcC6SjzLcyE9ySYnbLBm_pW9XRlucWoXvoC_OURE7mHPULAPpwomHCf8khJWMrSG3lrnfqGFB5g9YfFSD1ZnARjLyP6V_82jmLgzIPY2RV0clv0aeNCpIkJnruvDllMfCDJfUqWDPKvwHg7sY-7Xh-XysKaQLJVLlXKtcBrlKO7_eUJLFWYo7ahNp7dPWt0axjX4NN1LCSBKlyddXCw49Nks",
+        badge: "ताजा दाना",
+        desc: "सर्दियों की मक्के की रोटी और दलिया के लिए ताजा व भारी पीला मक्का।"
+      },
+      {
+        id: 14,
+        name: "पारंपरिक आम व नींबू का अचार",
+        category: "स्थानीय खाद्य पदार्थ",
+        price: 100,
+        unit: "प्रति 500 ग्राम",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1WKZgQpbF-ZuSMXkZvM8NfmgVpKBPkHRdOXZJ5pc7f0Yovjg_ZqfQUCCoF58PqblTcZCCC7HQvKzHXuZPFZqjdJjTBC7NIo7XwBjqTCwTX0UX-uHVtgRkx4ScoU8UIeqH1xinJhsQAwrGK4TXzItfxrIeNBiylAIDPwWy97MQCDCaOjUk3ShPF2RojrlkMONe3DwodnW2JzK4G26XpVwcWyT2xO4UxGNDcAcfOKej380qzycjAhQ9Nwzrs",
+        badge: "घरेलू बरनी",
+        desc: "शुद्ध सरसों तेल में पारंपरिक मसालों के साथ धूप में पकाया गया दादी का स्वाद।"
+      },
+      {
+        id: 15,
+        name: "कोदो श्रीअन्न (Millet - सुपरफूड)",
+        category: "अनाज एवं दालें",
+        price: 80,
+        unit: "प्रति किलो",
+        image: "https://lh3.googleusercontent.com/aida/AEtjO1U16zG5Ob3pi1bmQ1dd1rx7qJOexHc-Gp8HfC0RT_QrsxfvTNcGXuBL3CVF29lM4z9aQxr4Shedkuv9GFJSl_e7tWbu8HJlk7iuOAt8x5Ebl_K8ndA1o8aaI5eK_Qyj7M9Cv-1BUcC_7rZ7wr3x3pFm2aTu5Rn3_jCuHUc0NS0QWSavyAruPfDpWXB6JZh8rUPF5jhXJnIpU_WEmLNdR_9-RAvrzxyYCQg19ecuDDzMVcZHG-uEAJb5Zg",
+        badge: "विंध्य धरोहर",
+        desc: "शहडोल व डिंडौरी की विश्व-प्रसिद्ध प्राचीन मिलेट, शुगर नियंत्रण में अत्यंत लाभकारी।"
+      }
+    ];
 
-const categories = ["सभी उत्पाद",...new Set(products.map(p=>p.category))];
-let activeCategory = "सभी उत्पाद";
-let quantities = {};
-let cart = {};
+    // State Variables
+    let selectedCategory = "सभी";
+    let searchQuery = "";
+    let itemQuantities = {};
+    let cart = {};
+    let isCheckingOut = false;
 
-try {
- const saved = JSON.parse(localStorage.getItem("grambazaar_cart") || "{}");
- if(saved && typeof saved === "object" && !Array.isArray(saved)){
-  for(const p of products){
-   const q = Number(saved[p.id]);
-   if(Number.isInteger(q) && q > 0 && q <= 999) cart[p.id] = q;
-  }
- }
-} catch(e) { cart = {}; }
+    // Load Cart from LocalStorage safely
+    try {
+      const stored = localStorage.getItem("grambazaar_cart_v2");
+      if (stored) {
+        cart = JSON.parse(stored);
+      }
+    } catch(err) {
+      cart = {};
+    }
 
-function money(n){
- return "₹" + Number(n).toLocaleString("en-IN",{maximumFractionDigits:2});
-}
+    // Helper: Indian Rupee Formatter
+    function formatINR(amount) {
+      return "₹" + Number(amount).toLocaleString('en-IN');
+    }
 
-function saveCart(){
- try { localStorage.setItem("grambazaar_cart",JSON.stringify(cart)); } catch(e){}
-}
+    // Save cart state
+    function persistCart() {
+      try {
+        localStorage.setItem("grambazaar_cart_v2", JSON.stringify(cart));
+      } catch(e) {}
+    }
 
-function renderCategories(){
- document.getElementById("categories").innerHTML = categories.map(c=>
-  `<button class="cat ${c===activeCategory?"active":""}" data-cat="${c}">${c}</button>`
- ).join("");
- document.querySelectorAll("[data-cat]").forEach(b=>{
-  b.addEventListener("click",()=>{
-   activeCategory=b.dataset.cat;
-   renderCategories();
-   renderProducts();
-  });
- });
-}
+    // Render Categories
+    function initCategories() {
+      const categories = ["सभी", "अनाज एवं दालें", "कृषि उत्पाद", "स्थानीय खाद्य पदार्थ", "मसाले"];
+      const container = document.getElementById("categoryTabs");
+      if (!container) return;
 
-function renderProducts(){
- const search = document.getElementById("search").value.trim().toLocaleLowerCase("hi");
- const filtered = products.filter(p=>
-  (activeCategory==="सभी उत्पाद" || p.category===activeCategory) &&
-  (p.name.toLocaleLowerCase("hi").includes(search) ||
-   p.desc.toLocaleLowerCase("hi").includes(search))
- );
- document.getElementById("noProducts").style.display=filtered.length?"none":"block";
- document.getElementById("productGrid").innerHTML=filtered.map(p=>`
-  <article class="card">
-   <img class="product-image" src="${p.image}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;display:block;">
-   <div class="card-body">
-    <h3>${p.name}</h3>
-    <div class="muted">${p.desc}</div>
-    <div class="price">${money(p.price)} <span class="unit">${p.unit}</span></div>
-    <div class="qty">
-     <button aria-label="मात्रा घटाएँ" onclick="changeQty(${p.id},-1)">−</button>
-     <span id="qty-${p.id}">${quantities[p.id]||1}</span>
-     <button aria-label="मात्रा बढ़ाएँ" onclick="changeQty(${p.id},1)">+</button>
-    </div>
-    <div class="card-actions">
-     <button class="add" onclick="addToCart(${p.id})">कार्ट में जोड़ें</button>
-     <button class="direct" onclick="directOrder(${p.id})">WhatsApp से ऑर्डर</button>
-    </div>
-   </div>
-  </article>`).join("");
-}
+      container.innerHTML = categories.map(cat => {
+        const isActive = cat === selectedCategory;
+        return `
+          <button 
+            type="button" 
+            onclick="selectCategoryFilter('${cat}')"
+            class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 ${
+              isActive 
+                ? 'bg-forest-900 text-white shadow-md shadow-forest-900/20' 
+                : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+            }"
+          >
+            ${cat}
+          </button>
+        `;
+      }).join("");
+    }
 
-function changeQty(id,delta){
- quantities[id]=Math.max(1,Math.min(999,(quantities[id]||1)+delta));
- const el=document.getElementById("qty-"+id);
- if(el) el.textContent=quantities[id];
-}
+    function selectCategoryFilter(cat) {
+      selectedCategory = cat;
+      initCategories();
+      renderProducts();
+    }
 
-function addToCart(id){
- const q=quantities[id]||1;
- cart[id]=Math.min(999,(cart[id]||0)+q);
- saveCart();
- renderCart();
- alert("उत्पाद कार्ट में जोड़ दिया गया है।");
-}
+    // Handle Search
+    function handleSearch(val) {
+      searchQuery = val.trim().toLowerCase();
+      const clearBtn = document.getElementById("clearSearchBtn");
+      if (clearBtn) {
+        clearBtn.classList.toggle("hidden", searchQuery.length === 0);
+      }
+      renderProducts();
+    }
 
-function removeFromCart(id){
- delete cart[id];
- saveCart();
- renderCart();
-}
+    function clearSearch() {
+      searchQuery = "";
+      const input = document.getElementById("productSearch");
+      if (input) input.value = "";
+      const clearBtn = document.getElementById("clearSearchBtn");
+      if (clearBtn) clearBtn.classList.add("hidden");
+      renderProducts();
+    }
 
-function clearCart(){
- if(!Object.keys(cart).length){alert("आपकी कार्ट पहले से खाली है।");return;}
- if(confirm("क्या आप पूरी कार्ट खाली करना चाहते हैं?")){
-  cart={};saveCart();renderCart();
- }
-}
+    // Render Products Grid
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      const emptyState = document.getElementById("emptySearchState");
+      if (!grid) return;
 
-function getCartProducts(){
- return products.filter(p=>Number.isInteger(cart[p.id])&&cart[p.id]>0)
-  .map(p=>({...p,quantity:cart[p.id],subtotal:p.price*cart[p.id]}));
-}
+      const filtered = productsData.filter(p => {
+        const matchCategory = selectedCategory === "सभी" || p.category === selectedCategory;
+        const matchSearch = p.name.toLowerCase().includes(searchQuery) || 
+                            p.desc.toLowerCase().includes(searchQuery) ||
+                            p.category.toLowerCase().includes(searchQuery);
+        return matchCategory && matchSearch;
+      });
 
-function renderCart(){
- const items=getCartProducts();
- document.getElementById("cartCount").textContent=items.reduce((s,p)=>s+p.quantity,0);
- document.getElementById("cartTotal").textContent=money(items.reduce((s,p)=>s+p.subtotal,0));
- document.getElementById("cartItems").innerHTML=items.length?items.map(p=>`
-  <div class="cart-row">
-   <div class="cart-row-info">
-    <img src="${p.image}" alt="${p.name}" class="cart-thumb">
-    <div>
-     <strong>${p.name}</strong>
-     <small>${money(p.price)} ${p.unit} × ${p.quantity}</small>
-     <strong>${money(p.subtotal)}</strong>
-    </div>
-   </div>
-   <div>
-    <button class="cat" onclick="adjustCart(${p.id},-1)">−</button>
-    <button class="cat" onclick="adjustCart(${p.id},1)">+</button>
-    <button class="remove" onclick="removeFromCart(${p.id})">हटाएँ</button>
-   </div>
-  </div>`).join(""):`<div class="empty">🛒 आपकी कार्ट खाली है।<br>अपनी पसंद के उत्पाद जोड़ें।</div>`;
-}
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
 
-function adjustCart(id,delta){
- if(!cart[id])return;
- cart[id]=Math.min(999,cart[id]+delta);
- if(cart[id]<1)delete cart[id];
- saveCart();renderCart();
-}
+      emptyState.classList.add("hidden");
 
-function checkoutCart(){
- if(!getCartProducts().length){
-  alert("पहले कार्ट में कम से कम एक उत्पाद जोड़ें।");
-  document.getElementById("productSection").scrollIntoView({behavior:"smooth"});
-  return;
- }
- document.getElementById("checkoutSection").scrollIntoView({behavior:"smooth"});
- document.getElementById("customerName").focus({preventScroll:true});
-}
+      grid.innerHTML = filtered.map(p => {
+        const currentQty = itemQuantities[p.id] || 1;
+        return `
+          <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+            
+            <!-- Image Area -->
+            <div class="relative h-48 bg-stone-100 overflow-hidden">
+              <img 
+                src="${p.image}" 
+                alt="${p.name}" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500'"
+              >
+              <div class="absolute top-3 left-3 flex flex-col gap-1">
+                <span class="badge-blur bg-forest-950/80 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  ${p.category}
+                </span>
+                ${p.badge ? `
+                  <span class="bg-amber-400 text-forest-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm">
+                    ${p.badge}
+                  </span>
+                ` : ''}
+              </div>
+            </div>
 
-function safeText(s){
- return String(s||"").replace(/[\u0000-\u001F\u007F]/g," ").trim();
-}
+            <!-- Content Area -->
+            <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 class="text-base font-extrabold text-forest-950 line-clamp-1 group-hover:text-forest-700 transition">
+                  ${p.name}
+                </h3>
+                <p class="text-xs text-stone-500 mt-1 line-clamp-2 leading-relaxed">
+                  ${p.desc}
+                </p>
+              </div>
 
-function openWhatsApp(message){
- const url="https://wa.me/"+SELLER_WHATSAPP+"?text="+encodeURIComponent(message);
- const win=window.open(url,"_blank");
- if(!win) window.location.href=url;
-}
+              <!-- Price & Quantity Selector -->
+              <div>
+                <div class="flex items-baseline justify-between mb-3">
+                  <div class="text-xl font-extrabold text-forest-900">
+                    ${formatINR(p.price)}
+                    <span class="text-xs font-normal text-stone-500">/ ${p.unit}</span>
+                  </div>
+                  
+                  <!-- Quantity Pill -->
+                  <div class="inline-flex items-center border border-stone-200 rounded-xl bg-stone-50 p-1">
+                    <button 
+                      type="button" 
+                      onclick="updateItemQty(${p.id}, -1)" 
+                      class="w-7 h-7 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-stone-100 flex items-center justify-center font-bold text-xs active:scale-95 transition"
+                    >
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span id="qty-val-${p.id}" class="w-8 text-center text-xs font-extrabold text-forest-950">
+                      ${currentQty}
+                    </span>
+                    <button 
+                      type="button" 
+                      onclick="updateItemQty(${p.id}, 1)" 
+                      class="w-7 h-7 rounded-lg bg-white border border-stone-200 text-stone-700 hover:bg-stone-100 flex items-center justify-center font-bold text-xs active:scale-95 transition"
+                    >
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
 
-function customerDetails(){
- const name=safeText(document.getElementById("customerName").value);
- const phone=safeText(document.getElementById("customerPhone").value);
- const address=safeText(document.getElementById("customerAddress").value);
- const city=safeText(document.getElementById("customerCity").value);
- const pin=safeText(document.getElementById("customerPin").value);
- const notes=safeText(document.getElementById("customerNotes").value);
- if(!name||!/^[6-9][0-9]{9}$/.test(phone)||!address||!city||!/^[0-9]{6}$/.test(pin)){
-  alert("कृपया सभी आवश्यक जानकारी सही भरें।");
-  return null;
- }
- return {name,phone,address,city,pin,notes};
-}
+                <!-- CTA Buttons -->
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                  <button 
+                    type="button" 
+                    onclick="addToCart(${p.id})" 
+                    class="py-2.5 px-3 rounded-xl bg-forest-900 hover:bg-forest-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition"
+                  >
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>कार्ट में जोड़ें</span>
+                  </button>
 
-function orderMessage(customer,items){
- const total=items.reduce((s,p)=>s+p.subtotal,0);
- return [
-  "नमस्ते GramBazaar!",
-  "मुझे निम्नलिखित उत्पाद ऑर्डर करने हैं।",
-  "",
-  "ग्राहक का नाम: "+customer.name,
-  "मोबाइल नंबर: "+customer.phone,
-  "पूरा पता: "+customer.address,
-  "गाँव/शहर: "+customer.city,
-  "पिन कोड: "+customer.pin,
-  "",
-  "ऑर्डर विवरण:",
-  ...items.map((p,i)=>(i+1)+". "+p.name+" ("+p.unit+") × "+p.quantity+" = "+money(p.subtotal)),
-  "",
-  "कुल उत्पाद राशि: "+money(total),
-  "अतिरिक्त जानकारी: "+(customer.notes||"कोई नहीं"),
-  "",
-  "कृपया उत्पादों की उपलब्धता, अंतिम कीमत और डिलीवरी शुल्क की पुष्टि करें।",
-  "धन्यवाद!"
- ].join("\n");
-}
+                  <button 
+                    type="button" 
+                    onclick="quickDirectOrder(${p.id})" 
+                    class="py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition"
+                  >
+                    <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>
+                    <span>सीधा ऑर्डर</span>
+                  </button>
+                </div>
+              </div>
 
-document.getElementById("checkoutForm").addEventListener("submit",function(e){
- e.preventDefault();
- const customer=customerDetails();
- if(!customer)return;
- const items=getCartProducts();
- if(!items.length){alert("आपकी कार्ट खाली है।");return;}
- openWhatsApp(orderMessage(customer,items));
-});
+            </div>
 
-function directOrder(id){
- const p=products.find(x=>x.id===id);
- if(!p)return;
- const customer=customerDetails();
- if(!customer){
-  document.getElementById("checkoutSection").scrollIntoView({behavior:"smooth"});
-  alert("पहले ऑर्डर फ़ॉर्म में अपना नाम, मोबाइल नंबर और पता भरें।");
-  return;
- }
- const q=quantities[id]||1;
- openWhatsApp(orderMessage(customer,[{...p,quantity:q,subtotal:p.price*q}]));
-}
+          </div>
+        `;
+      }).join("");
+    }
 
-document.getElementById("suggestForm").addEventListener("submit",function(e){
- e.preventDefault();
- const name=safeText(document.getElementById("suggestName").value);
- const product=safeText(document.getElementById("suggestProduct").value);
- const notes=safeText(document.getElementById("suggestNotes").value);
- if(!product){alert("कृपया उत्पाद का नाम लिखें।");return;}
- openWhatsApp([
-  "नमस्ते GramBazaar!",
-  "मैं वेबसाइट के लिए एक उत्पाद सुझाना चाहता/चाहती हूँ।",
-  "नाम: "+(name||"नहीं दिया"),
-  "सुझाया गया उत्पाद: "+product,
-  "अतिरिक्त सुझाव: "+(notes||"कोई नहीं")
- ].join("\n"));
-});
+    // Item Quantity +/-
+    function updateItemQty(id, delta) {
+      const cur = itemQuantities[id] || 1;
+      const next = Math.max(1, Math.min(99, cur + delta));
+      itemQuantities[id] = next;
+      const el = document.getElementById(`qty-val-${id}`);
+      if (el) el.innerText = next;
+    }
 
-document.getElementById("year").textContent=new Date().getFullYear();
-renderCategories();
-renderProducts();
-</script>
+    // Add To Cart
+    function addToCart(id) {
+      const qty = itemQuantities[id] || 1;
+      cart[id] = (cart[id] || 0) + qty;
+      persistCart();
+      renderCartUI();
+      showToast("उत्पाद कार्ट में जोड़ दिया गया है!");
+    }
+
+    // Cart Management
+    function adjustCartItem(id, delta) {
+      if (!cart[id]) return;
+      cart[id] += delta;
+      if (cart[id] <= 0) {
+        delete cart[id];
+      }
+      persistCart();
+      renderCartUI();
+    }
+
+    function removeCartItem(id) {
+      delete cart[id];
+      persistCart();
+      renderCartUI();
+    }
+
+    function clearAllCart() {
+      if (Object.keys(cart).length === 0) return;
+      if (confirm("क्या आप पूरी कार्ट खाली करना चाहते हैं?")) {
+        cart = {};
+        persistCart();
+        renderCartUI();
+      }
+    }
+
+    // Render Drawer Cart Items
+    function renderCartUI() {
+      const navCount = document.getElementById("navCartCount");
+      const drawerCount = document.getElementById("drawerCount");
+      const itemsContainer = document.getElementById("drawerCartItems");
+      const drawerTotal = document.getElementById("drawerTotal");
+
+      const itemIds = Object.keys(cart);
+      const totalCount = itemIds.reduce((sum, id) => sum + cart[id], 0);
+
+      if (navCount) navCount.innerText = totalCount;
+      if (drawerCount) drawerCount.innerText = totalCount;
+
+      let subtotal = 0;
+
+      if (itemIds.length === 0) {
+        itemsContainer.innerHTML = `
+          <div class="text-center py-12 space-y-3">
+            <div class="w-14 h-14 bg-stone-100 rounded-full flex items-center justify-center mx-auto text-stone-400 text-2xl">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <p class="text-stone-600 font-bold text-sm">आपकी कार्ट अभी खाली है</p>
+            <p class="text-xs text-stone-400 max-w-xs mx-auto">शहडोल के शुद्ध और स्थानीय उत्पादों को अपनी कार्ट में जोड़ें।</p>
+          </div>
+        `;
+        if (drawerTotal) drawerTotal.innerText = "₹0";
+        return;
+      }
+
+      itemsContainer.innerHTML = itemIds.map(id => {
+        const product = productsData.find(p => p.id === Number(id));
+        if (!product) return '';
+        const qty = cart[id];
+        const itemTotal = product.price * qty;
+        subtotal += itemTotal;
+
+        return `
+          <div class="flex items-center gap-3 p-3 bg-stone-50 rounded-2xl border border-stone-200/80">
+            <img src="${product.image}" alt="${product.name}" class="w-16 h-16 rounded-xl object-cover border border-stone-200">
+            <div class="flex-1 min-w-0">
+              <h4 class="text-xs font-bold text-forest-950 truncate">${product.name}</h4>
+              <div class="text-[11px] text-stone-500">${formatINR(product.price)} ${product.unit}</div>
+              <div class="text-xs font-extrabold text-forest-900 mt-1">${formatINR(itemTotal)}</div>
+            </div>
+            <div class="flex flex-col items-end gap-1.5">
+              <button onclick="removeCartItem(${product.id})" class="text-stone-400 hover:text-red-500 text-xs p-1">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+              <div class="flex items-center border border-stone-200 rounded-lg bg-white p-0.5">
+                <button onclick="adjustCartItem(${product.id}, -1)" class="w-6 h-6 flex items-center justify-center text-xs text-stone-600 hover:bg-stone-100 rounded">
+                  <i class="fa-solid fa-minus text-[10px]"></i>
+                </button>
+                <span class="w-6 text-center text-xs font-bold text-stone-900">${qty}</span>
+                <button onclick="adjustCartItem(${product.id}, 1)" class="w-6 h-6 flex items-center justify-center text-xs text-stone-600 hover:bg-stone-100 rounded">
+                  <i class="fa-solid fa-plus text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      if (drawerTotal) drawerTotal.innerText = formatINR(subtotal);
+    }
+
+    // Toggle Cart Drawer
+    function toggleCartDrawer(open) {
+      const backdrop = document.getElementById("cartDrawerBackdrop");
+      const drawer = document.getElementById("cartDrawer");
+      if (open) {
+        backdrop.classList.remove("pointer-events-none");
+        backdrop.classList.add("opacity-100");
+        drawer.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.remove("opacity-100");
+        backdrop.classList.add("pointer-events-none");
+        drawer.classList.add("translate-x-full");
+        // Reset checkout fields view
+        isCheckingOut = false;
+        document.getElementById("checkoutFieldsContainer")?.classList.add("hidden");
+        const btn = document.getElementById("checkoutActionBtn");
+        if (btn) btn.innerHTML = `<span>ऑर्डर की जानकारी भरें</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+      }
+    }
+
+    // Handle Checkout Step / WhatsApp Generation
+    function handleCheckoutStep() {
+      const itemIds = Object.keys(cart);
+      if (itemIds.length === 0) {
+        alert("कृपया पहले कार्ट में कम से कम एक उत्पाद जोड़ें।");
+        return;
+      }
+
+      const formContainer = document.getElementById("checkoutFieldsContainer");
+      const actionBtn = document.getElementById("checkoutActionBtn");
+
+      if (!isCheckingOut) {
+        // Step 1: Reveal Checkout Form
+        isCheckingOut = true;
+        formContainer.classList.remove("hidden");
+        actionBtn.innerHTML = `<i class="fa-brands fa-whatsapp text-lg text-emerald-300"></i> <span>WhatsApp पर ऑर्डर भेजें</span>`;
+        actionBtn.classList.remove("bg-forest-900");
+        actionBtn.classList.add("bg-emerald-600", "hover:bg-emerald-700");
+        document.getElementById("custName")?.focus();
+        return;
+      }
+
+      // Step 2: Validate Fields and Submit to WhatsApp
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const city = document.getElementById("custCity").value.trim();
+      const pin = document.getElementById("custPin").value.trim();
+      const notes = document.getElementById("custNotes").value.trim();
+
+      if (!name || !phone || !address || !city || !pin) {
+        alert("कृपया सभी आवश्यक जानकारी (नाम, मोबाइल, पूरा पता, शहर व पिन कोड) दर्ज करें।");
+        return;
+      }
+
+      if (!/^[6-9]\d{9}$/.test(phone)) {
+        alert("कृपया 10 अंकों का वैध भारतीय मोबाइल नंबर दर्ज करें।");
+        return;
+      }
+
+      // Prepare order list text
+      let totalAmount = 0;
+      const orderLines = itemIds.map((id, index) => {
+        const prod = productsData.find(p => p.id === Number(id));
+        const qty = cart[id];
+        const lineTotal = prod.price * qty;
+        totalAmount += lineTotal;
+        return `${index + 1}. ${prod.name} (${prod.unit}) × ${qty} = ${formatINR(lineTotal)}`;
+      });
+
+      const message = [
+        "🌾 *नमस्ते GramBazaar (ग्रामबाज़ार) Team!*",
+        "मैं वेबसाइट से निम्नलिखित उत्पाद ऑर्डर करना चाहता/चाहती हूँ:",
+        "",
+        "👤 *ग्राहक विवरण:*",
+        `• नाम: ${name}`,
+        `• मोबाइल: ${phone}`,
+        `• डिलीवरी पता: ${address}`,
+        `• गाँव/शहर: ${city}`,
+        `• पिन कोड: ${pin}`,
+        "",
+        "🛒 *ऑर्डर किए गए उत्पाद:*",
+        ...orderLines,
+        "",
+        `💵 *कुल उत्पाद राशि:* ${formatINR(totalAmount)}`,
+        notes ? `📝 *विशेष निर्देश:* ${notes}` : "",
+        "",
+        "कृपया उत्पाद उपलब्धता, अंतिम बिल और डिलीवरी समय की पुष्टि करें। धन्यवाद!"
+      ].filter(Boolean).join("\n");
+
+      // Open WhatsApp
+      const waUrl = `https://wa.me/${SELLER_WHATSAPP}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, "_blank");
+    }
+
+    // Quick Direct Order (Single Item)
+    function quickDirectOrder(id) {
+      const prod = productsData.find(p => p.id === id);
+      if (!prod) return;
+      const qty = itemQuantities[id] || 1;
+      const total = prod.price * qty;
+
+      const message = [
+        "🌾 *नमस्ते GramBazaar (ग्रामबाज़ार)!*",
+        "मुझे सीधे निम्नलिखित उत्पाद का ऑर्डर देना है:",
+        "",
+        `• *उत्पाद:* ${prod.name}`,
+        `• *मात्रा:* ${qty} (${prod.unit})`,
+        `• *अनुमानित राशि:* ${formatINR(total)}`,
+        "",
+        "कृपया डिलीवरी और भुगतान का विवरण साझा करें।"
+      ].join("\n");
+
+      window.open(`https://wa.me/${SELLER_WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank");
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(btn) {
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector("i");
+      const isHidden = content.classList.contains("hidden");
+
+      document.querySelectorAll("#faqAccordion > div > div").forEach(el => el.classList.add("hidden"));
+      document.querySelectorAll("#faqAccordion > div > button i").forEach(ic => ic.classList.remove("rotate-180"));
+
+      if (isHidden) {
+        content.classList.remove("hidden");
+        icon.classList.add("rotate-180");
+      }
+    }
+
+    // Handle Suggestion Form
+    function handleSuggestSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById("sugName").value.trim();
+      const prod = document.getElementById("sugProduct").value.trim();
+      const note = document.getElementById("sugNote").value.trim();
+
+      const message = [
+        "💡 *नया उत्पाद सुझाव (GramBazaar वेबसाइट)*",
+        `• सुझाया गया उत्पाद: ${prod}`,
+        name ? `• सुझाने वाले का नाम: ${name}` : "",
+        note ? `• विवरण/स्रोत: ${note}` : ""
+      ].filter(Boolean).join("\n");
+
+      window.open(`https://wa.me/${SELLER_WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank");
+    }
+
+    // Toast Notification helper
+    function showToast(msg) {
+      const toast = document.getElementById("toastNotification");
+      const text = document.getElementById("toastMessage");
+      if (!toast || !text) return;
+      text.innerText = msg;
+      toast.classList.remove("opacity-0", "pointer-events-none", "translate-y-4");
+      toast.classList.add("opacity-100", "translate-y-0");
+      setTimeout(() => {
+        toast.classList.remove("opacity-100", "translate-y-0");
+        toast.classList.add("opacity-0", "pointer-events-none", "translate-y-4");
+      }, 2500);
+    }
+
+    // Startup
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("currentYear").innerText = new Date().getFullYear();
+      initCategories();
+      renderProducts();
+      renderCartUI();
+    });
+  </script>
 </body></html>
