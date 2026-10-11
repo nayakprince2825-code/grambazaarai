@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="hi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>GramBazaar — शहडोल के गाँव से, आपके घर तक</title>
+<meta content="शहडोल (मध्य प्रदेश) के स्थानीय किसानों, ग्रामीणों और स्व-सहायता समूहों के ताज़ा, जैविक व प्रामाणिक उत्पाद सीधे घर मँगवाएँ।" name="description"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f2f8f3',
+              100: '#e1f0e4',
+              200: '#c5e2cb',
+              600: '#237332',
+              700: '#1b5623',
+              800: '#15441c',
+              900: '#0e2e13',
+            },
+            amberAccent: {
+              500: '#e69500',
+              600: '#c67e00',
+            },
+            creamBg: '#fcfaf6'
+          },
+          fontFamily: {
+            hindi: ['Hind', 'sans-serif'],
+            sans: ['Poppins', 'Hind', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Hind', sans-serif;
+      background-color: #fbf9f5;
+      color: #27272a;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 4px;
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 4px;
+    }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+<!-- Top Announcement Bar -->
+<div class="bg-brand-900 text-brand-100 text-xs py-1.5 px-3 text-center flex items-center justify-center gap-2 font-medium">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+<span>🌿 शहडोल (म.प्र.) के किसानों व स्थानीय उत्पादकों का बाज़ार | सीधे WhatsApp पर त्वरित डिलीवरी</span>
+<a class="hidden sm:inline-block underline ml-2 text-white font-bold" href="tel:+918463017119">+91 8463017119</a>
+</div>
+<!-- Header -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-sm border-b border-gray-100">
+<div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+<!-- Logo -->
+<a class="flex items-center gap-2 shrink-0" href="#hero">
+<div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-700 text-white flex items-center justify-center shadow-md shadow-brand-700/20">
+<i class="w-5 h-5 sm:w-6 sm:h-6" data-lucide="sprout"></i>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-bold text-lg sm:text-xl text-brand-800 tracking-tight font-sans">GramBazaar</span>
+<span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-semibold">शहडोल</span>
+</div>
+<p class="text-[10px] text-gray-500 leading-none hidden sm:block">शहडोल के गाँव से, आपके घर तक</p>
+</div>
+</a>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700">
+<a class="hover:text-brand-700 transition" href="#hero">होम</a>
+<a class="hover:text-brand-700 transition" href="#products-section">सभी उत्पाद</a>
+<a class="hover:text-brand-700 transition" href="#suggestions">सुझाव</a>
+<a class="hover:text-brand-700 transition" href="#delivery-calc">डिलीवरी शुल्क</a>
+<a class="hover:text-brand-700 transition" href="#about">हमारे बारे में</a>
+<a class="hover:text-brand-700 transition" href="#faq">सामान्य प्रश्न</a>
+<a class="hover:text-brand-700 transition" href="#contact">संपर्क</a>
+</nav>
+<!-- Header Actions -->
+<div class="flex items-center gap-2">
+<!-- Delivery Calc Modal Button (Desktop/Tablet) -->
+<button class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 border border-brand-200 rounded-lg transition" onclick="openDeliveryModal()">
+<i class="w-3.5 h-3.5 text-brand-600" data-lucide="truck"></i>
+<span>शुल्क कैलकुलेटर</span>
+</button>
+<!-- Direct WhatsApp Seller Link -->
+<a class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition" href="https://wa.me/918463017119?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20GramBazaar%21%20%E0%A4%AE%E0%A5%81%E0%A4%98%E0%A5%87%20%E0%A4%9C%E0%A4%BE%E0%A4%A8%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4" rel="noopener" target="_blank">
+<i class="w-3.5 h-3.5 text-emerald-600" data-lucide="message-circle"></i>
+<span>WhatsApp संपर्क</span>
+</a>
+<!-- Cart Trigger Button -->
+<button aria-label="शॉपिंग कार्ट खोलें" class="relative flex items-center gap-1.5 bg-brand-800 hover:bg-brand-900 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-medium text-xs sm:text-sm shadow-md transition" onclick="openCartDrawer()">
+<i class="w-4 h-4" data-lucide="shopping-bag"></i>
+<span class="font-semibold">कार्ट</span>
+<span class="w-5 h-5 rounded-full bg-amber-400 text-brand-900 text-xs font-bold flex items-center justify-center" id="header-cart-count">0</span>
+</button>
+</div>
+</div>
+<!-- Mobile Subheader Search Bar -->
+<div class="px-3 pb-2.5 max-w-7xl mx-auto">
+<div class="relative w-full">
+<i class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" data-lucide="search"></i>
+<input class="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent transition" id="global-search-input" oninput="handleSearch(this.value)" placeholder="शहडोल के ताज़े उत्पाद खोजें... (उदा: मटका, खिलौने, बर्तन, दाल, प्याज, चावल, शहद)" type="text"/>
+<button class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" id="clear-search-btn" onclick="clearSearch()">
+<i class="w-4 h-4" data-lucide="x"></i>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-b from-brand-50/60 to-white pt-6 pb-10 sm:py-12 border-b border-gray-100" id="hero">
+<div class="max-w-7xl mx-auto px-4 sm:px-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-100/70 border border-brand-200 text-brand-800 rounded-full text-xs font-semibold">
+<i class="w-3.5 h-3.5 text-brand-600" data-lucide="check-circle"></i>
+<span>गाँव के उत्पाद व पारंपरिक हस्तशिल्प, सीधे आपके घर तक</span>
+</div>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+              शहडोल के स्थानीय उत्पाद <br class="hidden sm:inline"/>
+<span class="text-brand-700">अब आपके घर पर!</span>
+</h1>
+<p class="text-sm sm:text-base text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              अपने क्षेत्र के किसानों, कुम्हारों और स्थानीय विक्रेताओं से खरीदें ताज़ा अनाज, मौसमी सब्जियाँ, और प्रामाणिक मिट्टी के हस्तशिल्प। बिना किसी बिचौलिये के सीधे स्थानीय ग्रामीण अर्थव्यवस्था को मजबूत करें।
+            </p>
+<div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
+<a class="px-5 py-2.5 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-semibold text-sm shadow-md shadow-brand-700/20 transition flex items-center gap-2" href="#products-section">
+<span>सभी उत्पाद देखें व खरीदें</span>
+<i class="w-4 h-4" data-lucide="arrow-down"></i>
+</a>
+<button class="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-semibold text-sm shadow-md shadow-amber-500/20 transition flex items-center gap-1.5" onclick="openDeliveryModal()">
+<i class="w-4 h-4" data-lucide="calculator"></i>
+<span>डिलीवरी शुल्क कैलकुलेटर</span>
+</button>
+<a class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-sm shadow-md shadow-emerald-600/20 transition flex items-center gap-1.5" href="https://wa.me/918463017119?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%20GramBazaar%21%20%E0%A4%AE%E0%A5%81%E0%A4%98%E0%A5%87%20%E0%A4%B8%E0%A5%80%E0%A4%A7%E0%A5%87%20WhatsApp%20%E0%A4%AA%E0%A4%B0%20%E0%A4%91%E0%A4%B0%E0%A5%8D%E0%A4%A1%E0%A4%B0%20%E0%A4%95%E0%A4%B0%E0%A4%A8%E0%A4%BE%20%E0%A4%B9%E0%A5%88%E0%A5%A4" rel="noopener" target="_blank">
+<i class="w-4 h-4" data-lucide="message-circle"></i>
+<span>WhatsApp पर ऑर्डर करें</span>
+</a>
+</div>
+<!-- Highlights Pill -->
+<div class="grid grid-cols-3 gap-2 sm:gap-4 pt-4 border-t border-gray-200/60 max-w-lg mx-auto lg:mx-0">
+<div class="bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm text-center">
+<i class="w-4 h-4 text-brand-600 mx-auto mb-1" data-lucide="sprout"></i>
+<div class="text-[11px] sm:text-xs font-bold text-gray-800">स्थानीय उत्पादक</div>
+<div class="text-[10px] text-gray-500">सोहागपुर व बुढ़ार अंचल</div>
+</div>
+<div class="bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm text-center">
+<i class="w-4 h-4 text-emerald-600 mx-auto mb-1" data-lucide="phone-call"></i>
+<div class="text-[11px] sm:text-xs font-bold text-gray-800">सीधा WhatsApp</div>
+<div class="text-[10px] text-gray-500">तुरंत ऑर्डर व चैट</div>
+</div>
+<div class="bg-white p-2.5 rounded-xl border border-gray-100 shadow-sm text-center">
+<i class="w-4 h-4 text-amber-600 mx-auto mb-1" data-lucide="truck"></i>
+<div class="text-[11px] sm:text-xs font-bold text-gray-800">घर तक आपूर्ति</div>
+<div class="text-[10px] text-gray-500">किफ़ायती डिलीवरी शुल्क</div>
+</div>
+</div>
+</div>
+<!-- Hero Image Banner -->
+<div class="lg:col-span-5">
+<div class="relative mx-auto max-w-sm sm:max-w-md rounded-2xl overflow-hidden shadow-xl border border-amber-100 bg-white">
+<img alt="GramBazaar शुद्ध स्थानीय उत्पाद" class="w-full h-56 sm:h-72 object-cover" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=800&amp;q=80'" src="https://lh3.googleusercontent.com/aida/AEtjO1XIV8dc5RomK4gWbSLEw_ar_0s8v524UvkX5hzl_t18ggs75-2A8JweZYIe8jvhYYVeG9vVac8T-kwAhxeSKWdTCen706w--te1AAAEVfHY_CBMv5nRajES6V9F8MSrb9WgP1F7cWs89vxMAzvlaidtFvotna7tQoqpRvucqihOeYxWmyK7iWAyE0Fo65J_IeKo5VJtefrLo9S2VuVT5qypn9jYGOcS_tgvGzMuJfxK1xG13Zr03P2k"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-4 text-white">
+<span class="inline-block text-[10px] bg-amber-500 text-white font-bold px-2 py-0.5 rounded w-max mb-1">शहडोल ग्राम पहल</span>
+<p class="font-bold text-base sm:text-lg">शुद्ध, ताज़ा और प्रामाणिक स्थानीय उपज व हस्तशिल्प</p>
+<p class="text-xs text-gray-200">सीधे गाँव से आपके रसोई घर तक</p>
+<div class="flex items-center gap-2 mt-2 pt-2 border-t border-white/20 text-xs">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="text-gray-200">सीधा विक्रेता संपर्क:</span>
+<span class="font-bold text-white">+91 9203622969</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Filters -->
+<section class="py-4 bg-white border-b border-gray-100 sticky top-[92px] sm:top-[68px] z-30 shadow-xs">
+<div class="max-w-7xl mx-auto px-3 sm:px-6">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-gray-500 uppercase tracking-wider">उत्पाद श्रेणियाँ</span>
+<span class="text-xs text-brand-700 font-semibold" id="active-category-indicator">सभी उत्पाद</span>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar text-xs">
+<button class="category-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-medium transition bg-brand-700 text-white shadow-sm" data-category="all" onclick="filterCategory('all')">
+            🌾 सभी उत्पाद
+          </button>
+<button class="category-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-medium transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="grains" onclick="filterCategory('grains')">
+            🍚 अनाज और दालें
+          </button>
+<button class="category-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-medium transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="vegetables" onclick="filterCategory('vegetables')">
+            🥬 ताज़ी सब्जियाँ
+          </button>
+<button class="category-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-medium transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="fruits" onclick="filterCategory('fruits')">
+            🍌 फल
+          </button>
+<button class="category-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-medium transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="specialty" onclick="filterCategory('specialty')">
+            🍯 स्थानीय खाद्य उत्पाद
+          </button>
+<button class="category-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-medium transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="seeds" onclick="filterCategory('seeds')">
+            🌱 बीज और खेती
+          </button>
+<button class="category-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-medium transition bg-gray-100 text-gray-700 hover:bg-gray-200" data-category="household" onclick="filterCategory('household')">
+            🏺 घरेलू व हस्तशिल्प उत्पाद
+          </button>
+</div>
+</div>
+</section>
+<!-- Product Catalog Section -->
+<section class="py-8 sm:py-12 max-w-7xl mx-auto px-3 sm:px-6" id="products-section">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+<div>
+<div class="inline-flex items-center gap-1.5 text-xs text-amber-700 font-semibold mb-1">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span>शहडोल स्थानीय उत्पाद सूची</span>
+</div>
+<h2 class="text-xl sm:text-2xl font-bold text-gray-900">
+            शहडोल के प्रमुख उत्पाद
+          </h2>
+<p class="text-xs text-gray-500 mt-0.5">
+            * यह नमूना क्षेत्रीय मूल्य है। ऑर्डर करने पर विक्रेता सीधे उपलब्धता एवं दर सत्यापित करेगा।
+          </p>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto text-xs text-gray-500">
+<span class="bg-gray-100 px-2.5 py-1 rounded-full font-medium text-gray-700" id="product-count-badge">17 उत्पाद उपलब्ध</span>
+</div>
+</div>
+<!-- Products Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6" id="products-grid">
+<!-- Rendered dynamically via JavaScript -->
+</div>
+<!-- No Products Found Message -->
+<div class="hidden text-center py-16 bg-white rounded-2xl border border-gray-100 p-6 my-6" id="no-products">
+<div class="w-14 h-14 mx-auto rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mb-3">
+<i class="w-7 h-7" data-lucide="search-x"></i>
+</div>
+<h3 class="text-base font-bold text-gray-800">कोई उत्पाद नहीं मिला!</h3>
+<p class="text-xs text-gray-500 max-w-sm mx-auto mt-1">
+          आपके खोजे गए शब्द से मेल खाता कोई उत्पाद अभी उपलब्ध नहीं है। कृपया कोई अन्य नाम आज़माएँ (उदा: मटका, खिलौने, बर्तन)।
+        </p>
+<button class="mt-4 px-4 py-2 bg-brand-700 text-white rounded-lg text-xs font-semibold hover:bg-brand-800 transition" onclick="clearSearch()">
+          सभी उत्पाद देखें
+        </button>
+</div>
+</section>
+<!-- Suggestions Section -->
+<section class="py-8 bg-amber-50/50 border-y border-amber-100/60" id="suggestions">
+<div class="max-w-7xl mx-auto px-4 sm:px-6">
+<div class="mb-5">
+<span class="text-xs font-bold text-amber-800 uppercase tracking-wider">लोकप्रिय व मौसमी पसंद</span>
+<h3 class="text-lg sm:text-xl font-bold text-gray-900">आपके लिए सुझाव</h3>
+<p class="text-xs text-gray-600">हाल ही में देखे गए और शहडोल क्षेत्र में सबसे अधिक पसंद किए गए उत्पाद</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="suggestions-grid">
+<!-- Dynamically populated -->
+</div>
+</div>
+</section>
+<!-- Delivery Fee Calculator Section -->
+<section class="py-10 bg-white border-b border-gray-100" id="delivery-calc">
+<div class="max-w-4xl mx-auto px-4 sm:px-6">
+<div class="bg-gradient-to-br from-brand-50 to-emerald-50/40 p-6 sm:p-8 rounded-2xl border border-brand-100 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-xl bg-brand-700 text-white flex items-center justify-center shadow-md">
+<i class="w-5 h-5" data-lucide="truck"></i>
+</div>
+<div>
+<h3 class="text-lg sm:text-xl font-bold text-gray-900">शहडोल स्थानीय डिलीवरी शुल्क कैलकुलेटर</h3>
+<p class="text-xs text-gray-600">अपने क्षेत्र के अनुसार त्वरित अनुमानित डिलीवरी शुल्क जानें</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1">अपना क्षेत्र/कस्बा चुनें:</label>
+<select class="w-full p-2.5 text-xs sm:text-sm bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-600 focus:outline-none" id="calc-area-select" onchange="updateDeliveryEstimate()">
+<option data-rate="20" value="shahdol-city">शहडोल शहर (मुख्य बाज़ार, सोहागपुर, रेलवे स्टेशन) — ₹20</option>
+<option data-rate="35" value="budhar">बुढ़ार (Budhar) — ₹35</option>
+<option data-rate="40" value="amlai">अमलाई (Amlai Paper Mill / OPM) — ₹40</option>
+<option data-rate="45" value="dhanpuri">धनपुरी (Dhanpuri Colliery Area) — ₹45</option>
+<option data-rate="55" value="jaisinghnagar">जयसिंहनगर (Jaisinghnagar) — ₹55</option>
+<option data-rate="70" value="beohari">ब्योहारी (Beohari) — ₹70</option>
+<option data-rate="50" value="other-rural">अन्य ग्रामीण अंचल (विक्रेता पुष्टि अनुसार) — ₹50</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-bold text-gray-700 mb-1">अनुमानित ऑर्डर भार / मात्रा:</label>
+<select class="w-full p-2.5 text-xs sm:text-sm bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-600 focus:outline-none" id="calc-weight-select" onchange="updateDeliveryEstimate()">
+<option data-extra="0" value="1">5 किलो तक (सामान्य घरेलू ऑर्डर) — सामान्य दर</option>
+<option data-extra="15" value="2">5 से 15 किलो (अनाज/सब्जी/मटका) — +₹15 अतिरिक्त</option>
+<option data-extra="30" value="3">15 किलो से अधिक (थोक/भारी ऑर्डर) — +₹30 अतिरिक्त</option>
+</select>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl border border-brand-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+<div>
+<span class="text-xs text-gray-500 block">कुल अनुमानित डिलीवरी शुल्क:</span>
+<span class="text-xl sm:text-2xl font-extrabold text-brand-800" id="calc-result-display">₹20</span>
+<span class="text-[11px] text-gray-400 block">*ऑर्डर के समय विक्रेता द्वारा अंतिम पुष्टि की जाएगी।</span>
+</div>
+<button class="w-full sm:w-auto px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-semibold shadow transition" onclick="applyDeliveryToCart()">
+              यह डिलीवरी क्षेत्र कार्ट में चुनें
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- How to Order via WhatsApp -->
+<section class="py-10 bg-white">
+<div class="max-w-7xl mx-auto px-4 sm:px-6">
+<div class="text-center max-w-xl mx-auto mb-8">
+<span class="text-xs font-bold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full uppercase tracking-wider">सरल 4-चरणीय प्रक्रिया</span>
+<h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2">WhatsApp से ऑर्डर कैसे करें?</h2>
+<p class="text-xs text-gray-600 mt-1">बिना किसी जटिल लॉगिन या ऑनलाइन कार्ड के झंझट के, सीधे विक्रेता से बातचीत करके ऑर्डर करें।</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-brand-50/50 p-4 rounded-2xl border border-brand-100 text-center">
+<div class="w-9 h-9 rounded-full bg-brand-700 text-white font-bold text-sm flex items-cen
